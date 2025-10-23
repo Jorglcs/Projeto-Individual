@@ -1,0 +1,13 @@
+ .zagreus img{
+    height: 300px;
+}
+
+body{
+    display: flex;
+
+}
+
+.tudo{
+    display: flex;
+    flex-direction: row;
+}
