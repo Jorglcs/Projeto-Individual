@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="C:\Users\Jorge\Desktop\projeto pessoal\Projeto-Individual\public\styles\style.css"
+    />
+  </head>
+
+  <body>
+    <!-- ====================PERSONAGENS============= -->
+    <!-- Personagem Inimigo -->
+    <div id="tudo" class="tudo">
+      <div class="inimigo">
+        <img src="assets/images/Wretched_Thug.png" alt="" />
+        <div class="status">
+          <p>❤ Vida:</p>
+          <p id="p_vidaInimigo">100</p>
+          <p>Dano - <p id="p_danoInimigo">12</p></p>
+        </div>
+      </div>
+
+      <!-- Personagem player -->
+      <div class="zagreus">
+        <img src="assets/images/Zagreus-_1_.png" alt="" />
+        <div class="status">
+          <p>❤ Vida:</p>
+          <p id="p_vidaPlayer">100/100</p>
+        </div>
+
+        <div>
+          <button onclick="atacar()">
+            <img src="assets/images/Divine_Strike_I.png" alt="" />
+            <h1>Ataque principal</h1>
+            <p>Dano - <p id="p_danoAtaque">50</p></p>
+          </button>
+          <button>
+            <img src="assets/images/Phalanx_Shot_I.png" alt="" />
+            <h1>Ataque secundario</h1>
+            Dano - 30
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- ------------------------------------------------------------------------------- -->
+
+    <!-- ======================PORTAS================= -->
+
+    <div id="div_portas" style="display: none">
+      <button id="button_porta1" class="porta">
+        <img
+          src="https://static.wikia.nocookie.net/hades_gamepedia_en/images/1/1b/Chaos_symbol_II.png/revision/latest?cb=20250220045238"
+          alt=""
+        />
+        <p>Porta 1</p>
+      </button>
+      <button id="button_porta2" class="porta" onclick="aresBoons()">
+        <img
+          src="https://static.wikia.nocookie.net/hades_gamepedia_en/images/c/c9/Ares_symbol.png/revision/latest?cb=20181212020222"
+          alt=""
+        />
+        <p>Porta 2</p>
+      </button>
+      <button id="button_porta3" class="porta">
+        <img
+          src="https://static.wikia.nocookie.net/hades_gamepedia_en/images/8/81/Athena_symbol.png/revision/latest?cb=20190119213057"
+          alt=""
+        />
+        <p>Porta 3</p>
+      </button>
+    </div>
+
+    <!-- ====================================================================================== -->
+
+    <!-- =======================================================BENÇÃOS=============================================== -->
+
+    <div id="div_tudoBoon" style="display: none" class="boons">
+      <div>
+        <button id="button_boon1" onclick="">
+          <img src="" alt="" />
+          <p id="p_textoBoon1"></p>
+        </button>
+        <button id="button_boon2" onclick="">
+          <img src="" alt="" />
+          <p id="p_textoBoon2"></p>
+        </button>
+        <button id="button_boon3" onclick="">
+          <img src="" alt="" />
+          <p id="p_textoBoon3"></p>
+        </button>
+      </div>
+    </div>
+
+    <!-- ========================================================================================================== -->
+    <script src="script.js"></script>
+  </body>
+</html>

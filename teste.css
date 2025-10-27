@@ -1,0 +1,75 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.tudo {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.portas {
+  display: flex;
+}
+.porta-1 {
+  height: 350px;
+  width: 250px;
+  background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.porta-1 div {
+  position: relative;
+  background-color: aliceblue;
+  margin: 0 10px;
+  height: 100%;
+  transition: 0.5s ease;
+  z-index: 2;
+}
+
+.porta-1:hover div {
+  margin-top: -450px;
+}
+
+.texto-porta {
+  position: absolute;
+  z-index: 1;
+}
+
+.porta-2 {
+  height: 350px;
+  width: 250px;
+  background-color: red;
+}
+.porta-2 div {
+  position: relative;
+  background-color: aliceblue;
+  margin: 0 10px;
+  height: 100%;
+  transition: 0.5s ease;
+}
+
+.porta-2:hover div {
+  margin-top: -450px;
+}
+
+.porta-3 {
+  height: 350px;
+  width: 250px;
+  background-color: red;
+}
+.porta-3 div {
+  position: relative;
+  background-color: aliceblue;
+  margin: 0 10px;
+  height: 100%;
+  transition: 0.5s ease;
+}
+
+.porta-3:hover div {
+  margin-top: -450px;
+}
