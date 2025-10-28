@@ -40,11 +40,11 @@ function ataqueInimigo() {
   }
   p_vidaPlayer.innerHTML = `${vidaAtual}/${vidaMaxima}`;
 }
-
+var numPortas = 0
 function selecionarPorta() {
   tudo.style.display = "none";
   div_portas.style.display = "flex";
-  var numPortas = Math.floor(Math.random() * 3 + 1);
+   numPortas = Math.floor(Math.random() * 3 + 1);
   if (numPortas == 1) {
     button_porta1.style.display = "flex";
     button_porta2.style.display = "none";
@@ -60,6 +60,20 @@ function selecionarPorta() {
       button_porta3.style.display = "flex";
     }
   }
+}
+
+function randomizarPortas(){
+  var cont =0
+  while (cont<numPortas){
+    cont++
+    var numEfeito = Math.floor(Math.random() * 4 + 1)
+    if (numEfeito ==1){
+      button_porta1.onclick = aresBoons;
+      img_porta
+    }
+  }
+
+
 }
 
 function selecionarBoon() {
