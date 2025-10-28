@@ -5,6 +5,12 @@ var vidaMaximaInimigo = 100;
 var vidaInimigo = 100;
 var danoInimigo = 12;
 
+
+
+
+
+
+
 function atacar() {
   vidaInimigo -= danoAtaque;
   p_vidaInimigo.innerHTML = vidaInimigo;
