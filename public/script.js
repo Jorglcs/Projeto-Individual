@@ -4,6 +4,12 @@ var vidaAtual = 100;
 var vidaMaximaInimigo = 100;
 var vidaInimigo = 100;
 var danoInimigo = 12;
+var andarAtual = 1
+
+function atualizarAndar(){
+  andarAtual++
+  p_andarAtual.innerHTML = andarAtual
+}
 
 function atacar() {
   vidaInimigo -= danoAtaque;
@@ -11,8 +17,12 @@ function atacar() {
   if (vidaInimigo <= 0) {
     selecionarPorta();
     randomizarPerkPortas();
+    atualizarAndar();
+    
+  }else{
+    ataqueInimigo();
+
   }
-  ataqueInimigo();
 }
 
 function sair() {
@@ -22,6 +32,7 @@ function sair() {
   vidaInimigo = vidaMaximaInimigo;
   p_vidaInimigo.innerHTML = vidaInimigo;
   p_danoInimigo.innerHTML = danoInimigo;
+  div_portas.style.display = "none";
   div_tudoBoon.style.display = "none";
   p_vidaPlayer.innerHTML = `${vidaAtual}/${vidaMaxima}`;
 }
@@ -59,10 +70,11 @@ function selecionarPorta() {
 
 function randomizarPerkPortas() {
   var listaPerks = [
-    ["assets/images/centaurhearth.png", "Coração de centauro"],
-    ["assets/images/Ares_symbol.png", "Benção de Ares", aresBoons],
+    ["assets/images/centaurhearth.png", "Coração de centauro",perk_coracaoCenatauro],
+    ["assets/images/Ares_symbol.png", "Benção de Ares", perk_aresBoons],
     ["assets/images/Zeus_symbol.png", "Benção de Zeus"],
     ["assets/images/Poseidon_symbol.png", "Benção de Poseidon"],
+    ["assets/images/fonte_cura.png","Fonte de cura", perk_fonteCura]
   ];
 
   // a lista dos perks vai ser [img,nome,descricao]
@@ -83,17 +95,26 @@ function randomizarPerkPortas() {
   }
 }
 
-function selecionarBoon() {
+function telaSelecionarBoons() {
   div_portas.style.display = "none";
   tudo.style.display = "none";
   div_tudoBoon.style.display = "flex";
 }
 
-function aresBoons() {
-  selecionarBoon();
-  div_portas.style.display = "none";
-  tudo.style.display = "none";
-  div_tudoBoon.style.display = "flex";
+function perk_coracaoCenatauro(){
+  vidaMaxima += 25
+  vidaAtual +=25
+  sair();
+
+}
+
+function perk_fonteCura(){
+  vidaAtual = vidaMaxima
+  sair()
+}
+
+function perk_aresBoons() {
+  telaSelecionarBoons();
   button_boon1.onclick = aresBoon1;
   p_textoBoon1.innerHTML = `Sacrifique 10 pontos de vida máxima para ganhar mais 10% de dano.`;
   button_boon2.onclick = aresBoon2;
