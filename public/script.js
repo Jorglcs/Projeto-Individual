@@ -4,11 +4,11 @@ var vidaAtual = 100;
 var vidaMaximaInimigo = 100;
 var vidaInimigo = 100;
 var danoInimigo = 12;
-var andarAtual = 1
+var andarAtual = 1;
 
-function atualizarAndar(){
-  andarAtual++
-  p_andarAtual.innerHTML = andarAtual
+function atualizarAndar() {
+  andarAtual++;
+  p_andarAtual.innerHTML = andarAtual;
 }
 
 function atacar() {
@@ -18,17 +18,15 @@ function atacar() {
     selecionarPorta();
     randomizarPerkPortas();
     atualizarAndar();
-    
-  }else{
+  } else {
     ataqueInimigo();
-
   }
 }
 
 function sair() {
   atualizarDificuldade();
   atualizar();
-  tudo.style.display = "flex ";
+  div_telaBatalha.style.display = "flex ";
   vidaInimigo = vidaMaximaInimigo;
   p_vidaInimigo.innerHTML = vidaInimigo;
   p_danoInimigo.innerHTML = danoInimigo;
@@ -39,8 +37,6 @@ function sair() {
 
 function ataqueInimigo() {
   var chanceAtaqueInimigo = Math.floor(Math.random() * 100 + 1); // de 1 a X e math flor para arrendondar para baixo (se for 1.1 vai ser = a 1)
-  console.log(chanceAtaqueInimigo);
-  console.log(chanceAtaqueInimigo <= 75);
   if (chanceAtaqueInimigo <= 75) {
     vidaAtual -= danoInimigo;
   }
@@ -48,7 +44,7 @@ function ataqueInimigo() {
 }
 var numPortas = 0;
 function selecionarPorta() {
-  tudo.style.display = "none";
+  div_telaBatalha.style.display = "none";
   div_portas.style.display = "flex";
   numPortas = Math.floor(Math.random() * 3 + 1);
   if (numPortas == 1) {
@@ -70,19 +66,22 @@ function selecionarPorta() {
 
 function randomizarPerkPortas() {
   var listaPerks = [
-    ["assets/images/centaurhearth.png", "Coração de centauro",perk_coracaoCenatauro],
+    [
+      "assets/images/centaurhearth.png",
+      "Coração de centauro",
+      perk_coracaoCenatauro,
+    ],
     ["assets/images/Ares_symbol.png", "Benção de Ares", perk_aresBoons],
     ["assets/images/Zeus_symbol.png", "Benção de Zeus"],
     ["assets/images/Poseidon_symbol.png", "Benção de Poseidon"],
-    ["assets/images/fonte_cura.png","Fonte de cura", perk_fonteCura]
+    ["assets/images/fonte_cura.png", "Fonte de cura", perk_fonteCura],
   ];
 
   // a lista dos perks vai ser [img,nome,descricao]
 
-  var cont = 0;
-  while (cont < numPortas) {
+  for (var cont = 1; cont <= numPortas; cont++) {
     var tamanholistaPerks = listaPerks.length;
-    cont++;
+
     var img_portaid = document.getElementById(`img_porta${cont}`);
     var p_portaid = document.getElementById(`p_porta${cont}`);
     var button_portaid = document.getElementById(`button_porta${cont}`);
@@ -97,20 +96,19 @@ function randomizarPerkPortas() {
 
 function telaSelecionarBoons() {
   div_portas.style.display = "none";
-  tudo.style.display = "none";
+  div_telaBatalha.style.display = "none";
   div_tudoBoon.style.display = "flex";
 }
 
-function perk_coracaoCenatauro(){
-  vidaMaxima += 25
-  vidaAtual +=25
+function perk_coracaoCenatauro() {
+  vidaMaxima += 25;
+  vidaAtual += 25;
   sair();
-
 }
 
-function perk_fonteCura(){
-  vidaAtual = vidaMaxima
-  sair()
+function perk_fonteCura() {
+  vidaAtual = vidaMaxima;
+  sair();
 }
 
 function perk_aresBoons() {
