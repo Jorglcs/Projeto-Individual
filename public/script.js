@@ -1,10 +1,18 @@
-var danoAtaque = 50;
+var danoAtaque = 28;
 var vidaMaxima = 100;
 var vidaAtual = 100;
 var vidaMaximaInimigo = 100;
 var vidaInimigo = 100;
 var danoInimigo = 12;
 var andarAtual = 1;
+var efeitoAtaquePrincipal = false
+var efeitoAtaqueSecundario = false
+
+
+var chanceCrtica = 10
+var danoCritico = 1.4
+
+
 
 function atualizarAndar() {
   andarAtual++;
@@ -12,6 +20,7 @@ function atualizarAndar() {
 }
 
 function atacar() {
+
   vidaInimigo -= danoAtaque;
   p_vidaInimigo.innerHTML = vidaInimigo;
   if (vidaInimigo <= 0) {
@@ -79,12 +88,12 @@ function randomizarPerkPortas() {
 
   // a lista dos perks vai ser [img,nome,descricao]
 
-  for (var cont = 1; cont <= numPortas; cont++) {
+  for (var i = 1; i <= numPortas; i++) {
     var tamanholistaPerks = listaPerks.length;
 
-    var img_portaid = document.getElementById(`img_porta${cont}`);
-    var p_portaid = document.getElementById(`p_porta${cont}`);
-    var button_portaid = document.getElementById(`button_porta${cont}`);
+    var img_portaid = document.getElementById(`img_porta${i}`);
+    var p_portaid = document.getElementById(`p_porta${i}`);
+    var button_portaid = document.getElementById(`button_porta${i}`);
 
     var numListaAleatorio = Math.floor(Math.random() * tamanholistaPerks); //gerar numero de 0 a tamanho da lista -1 pq começa do 0
     img_portaid.src = listaPerks[numListaAleatorio][0];
@@ -109,6 +118,11 @@ function perk_coracaoCenatauro() {
 function perk_fonteCura() {
   vidaAtual = vidaMaxima;
   sair();
+}
+function perk_zeusBoons(){
+  telaSelecionarBoons()
+  
+
 }
 
 function perk_aresBoons() {
