@@ -4,13 +4,19 @@
   margin: 0;
   padding: 0;
   font-family: "Spectral";
+  box-sizing: border-box;
 }
 header {
   display: flex;
   position: fixed;
   gap: auto;
   width: 100vw;
+  justify-content: space-between;
+  
+
+  padding: 0 15px;
 }
+
 header nav {
   display: flex;
   justify-content: center;
@@ -32,4 +38,5 @@ section {
 }
 .container-banner {
   background-image: url(../assets/images/Banner.png);
+  background-size: cover;
 }
