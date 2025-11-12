@@ -1,22 +1,29 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
-*{
-    margin: 0;
-    padding: 0;
-    background-color: #100102;
-    color: white;
-    box-sizing: border-box;
-    font-family: "Spectral";
+* {
+  margin: 0;
+  padding: 0;
+  /* background-color: #100102; */
+  color: white;
+  box-sizing: border-box;
+  font-family: "Spectral";
+}
+
+h1 {
+  font-size: 30px;
+}
+body {
+  background-color: #100102;
 }
 
 header {
   display: flex;
 
   gap: auto;
-  width: 100vw;
+
   justify-content: space-between;
-  
 
   padding: 0 15px;
+  background-color: black;
 }
 
 header nav {
@@ -35,52 +42,180 @@ header ul a {
   color: white;
 }
 
-
-
-p{
-    font-size: 24px;
-    
+p {
+  font-size: 24px;
 }
 
-section{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #100102;
+  /* margin-bottom: 200px; */
 }
-section h1{
-    align-self: flex-start;
-    margin-left: 10%;
+.section-sobre-mim {
+  margin-top: 200px;
+}
+.container-sobre-mim {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  justify-content: center;
+  width: 70%;
+  align-items: center;
+  margin-bottom: 250px;
 }
 
-.container-sobre-mim{
-    display: flex;
-    flex-direction: row;
-    gap: 40px;
-    justify-content: center ;
-    width: 70%;
-    align-items: center;
+.container-sobre-mim .icone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.container-sobre-mim .icone{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.container-sobre-mim .icone img {
+  height: 300px;
 }
-.container-sobre-mim .icone img{
-    height: 300px;
+.container-sobre-mim .container-texto {
+  display: flex;
+  flex-direction: column;
+  border-left: solid 4px #a11d1d;
+  padding-left: 15px;
 }
-.container-sobre-mim .container-texto{
-    display: flex;
-    flex-direction: column;
-    border-left: solid 4px #A11D1D;
-    padding-left: 15px;
+.container-sobre-mim .container-texto .icones {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 150px;
 }
-.container-sobre-mim .container-texto .icones{
-    display: flex;
-    align-items: center;
-    gap: 5px    ;
-    border-radius: 150px;
+.container-sobre-mim .container-texto .icones img {
+  height: 35px;
 }
-.container-sobre-mim .container-texto .icones img{
-    height: 35px;
+
+.section-projeto {
+  background-image: linear-gradient(180deg, #100102, #000000);
+}
+.container-projeto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 60%;
+  gap: 90px;
+  margin-bottom: 250px;
+}
+.container-projeto p {
+  border-bottom: #a11d1d solid 2px;
+}
+.section-desafio {
+  background-image: url(../assets/images/background-template.png);
+  background-size: cover;
+  background-position: center;
+}
+.container-desafio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 60%;
+  border-bottom: solid 2px #a11d1d;
+  gap: 80px;
+  margin-bottom: 250px;
+}
+.container-jogos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70%;
+  gap: 70px;
+  margin-bottom: 250px;
+}
+.container-jogos .container-conteudo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.container-jogos .container-conteudo .jogo {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.container-jogos .container-conteudo .jogo .informacoes {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  align-items: center;
+}
+.container-jogos .container-conteudo .jogo .informacoes img {
+  height: 300px;
+  border-radius: 12px;
+  transition: transform 0.3s ease, filter;
+}
+.container-jogos .container-conteudo .jogo .informacoes img:hover {
+  filter: brightness(1.2);
+  transform: scale(1.03);
+}
+.section-jogos {
+  background-image: url(../assets/images/background-template2.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+}
+
+.container-lembrancas {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 70%;
+  gap: 40px;
+  margin-bottom: 250px;
+}
+
+.container-lembrancas .conteudo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container-lembrancas .conteudo p {
+  border-right: solid 2px #a11d1d;
+  margin-right: 15px;
+}
+
+.container-lembrancas .conteudo img {
+  height: 400px;
+}
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-top: solid 2px #deba52;
+}
+footer img {
+  height: 35px;
+}
+footer div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+footer .informacoes {
+  display: flex;
+  flex-direction: column;
+}
+footer .assinatura {
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+footer .assinatura p {
+  font-size: 16px;
+}
+
+.ancoras {
+  gap: 10px;
+}
+h1 {
+  margin-bottom: 150px;
 }
