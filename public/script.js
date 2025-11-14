@@ -465,24 +465,6 @@ function perk_aresBoons() {
   }
 }
 
-function aresBoon1() {
-  player.vidaMaxima -= 10;
-  if (player.vidaAtual > player.vidaMaxima) {
-    player.vidaAtual -= 10;
-  }
-  player.danoAtaqueBasico += player.danoAtaqueBasico * 0.1;
-  sair();
-}
-
-function aresBoon2() {
-  player.danoAtaqueBasico += 5;
-  sair();
-}
-function aresBoon3() {
-  player.danoAtaqueBasico -= 5;
-  player.vidaMaxima += 5;
-  sair();
-}
 
 function atualizar() {
   p_vidaPlayer.innerHTML = `${player.vidaAtual}/${player.vidaMaxima}`;

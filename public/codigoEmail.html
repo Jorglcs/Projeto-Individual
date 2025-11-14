@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="div_tudoBoon"  class="boons">
+      <div class="container-boons">
+        <div id="button_boon1" onclick="" class="boon-1">
+          <img id="img_boon1" src="" alt="" />
+          <div class="textos">
+            <h2 id="h2_tituloBoon1"></h2>
+            <div class="descricao">
+              <p id="p_textoBoon1"></p>
+              <p id="p_tipoBoon1"></p>
+            </div>
+          </div>
+        </div>
+        <div id="button_boon2" onclick="" class="boon-2">
+          <img id="img_boon2" src="" alt="" />
+          <div class="textos">
+            <h2 id="h2_tituloBoon2"></h2>
+            <div>
+              <p id="p_textoBoon2"></p>
+              <p id="p_tipoBoon2"></p>
+            </div>
+          </div>
+        </div>
+        <div id="button_boon3" onclick="" class="boon-3">
+          <img id="img_boon3" src="" alt="" />
+          <div class="textos">
+            <h2 id="h2_tituloBoon3"></h2>
+            <div>
+              <p id="p_textoBoon3"></p>
+              <p id="p_tipoBoon3"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>
+<script>
+  var zeusBoons = [
+    {
+      nome: "Ataque basico zeus",
+      imagem: `assets/images/ataque-basico-zeus.png`,
+      titulo: `Julgamento Eletrico (Ataque Básico).`,
+      descricao: `Acertos críticos paralisam o inimigo por 1 turno.`,
+      tipo: `Ataque Básico (único).`,
+      efeito: function boon1() {
+        player.efeitoAtaquePrincipal = "zeus";
+        img_ataqueBasico.src = "assets/images/ataque-basico-zeus.png";
+        sair();
+      },
+    },
+    {
+      nome: "ataque especial zeus",
+      imagem: `assets/images/ataque-especial-zeus.png`,
+      titulo: `Raio Supremo (Ataque Especial)`,
+      descricao: `O ataque especial causa -20% de dano, Paralisa o inimigo por 2 turnos, e consome 2 cargas.`,
+      tipo: `Ataque Especial (único).`,
+      efeito: function boon2() {
+        player.efeitoAtaqueEspecial = "zeus";
+        player.danoAtaqueEspecial *= 0.8;
+        img_ataqueEspecial.src = "assets/images/ataque-especial-zeus.png";
+        sair();
+      },
+    },
+    {
+      nome: "buff 1 zeus",
+      imagem: `assets/images/buff-zeus-1.png`,
+      titulo: `Disciplina dos Céus`,
+      descricao: `+10% de precisão em ambos ataques, mas -5% de dano em ambos ataques.`,
+      tipo: `Buff.`,
+      efeito: function boon3() {
+        player.danoAtaqueBasico *= 0.95;
+        player.danoAtaqueEspecial *= 0.95;
+        player.chanceAtaqueBasico *= 1.1;
+        player.chanceAtaqueEspecial *= 1.1;
+        sair();
+      },
+    },
+    {
+      nome: "buff 2 zeus",
+      imagem: `assets/images/buff-zeus-2.png`,
+      titulo: `Trovão Impetuoso`,
+      descricao: `+10% de dano e +5% de chance crítica.`,
+      tipo: `Buff.`,
+      efeito: function boon4() {
+        player.danoAtaqueBasico *= 1.1;
+        player.danoAtaqueEspecial *= 1.1;
+        player.chanceCritico *= 1.05;
+        sair();
+      },
+    },
+    {
+      nome: "buff 3 zeus",
+      imagem: `assets/images/buff-zeus-3.png`,
+      titulo: `Poder Instável`,
+      descricao: `+25% de dano, mas -15% de chance de acerto do ataque basico.`,
+      tipo: `Buff.`,
+      efeito: function boon5() {
+        player.danoAtaqueBasico *= 1.25;
+        player.chanceAtaqueBasico *= 0.85;
+        sair();
+      },
+    },
+    {
+      nome: "buff 4 zeus",
+      imagem: `assets/images/buff-zeus-4.png`,
+      titulo: `Carga de Eletricidade`,
+      descricao: `+1 carga de ataque especial (permanente).`,
+      tipo: `Buff.`,
+      efeito: function boon6() {
+        player.cargaEspecial += 1;
+        player.cargaEspecialMaxima += 1;
+        sair();
+      },
+    },
+  ];
+  for (var i = 1; i <= 3; i++) {
+    var tamanhoListaBoon = zeusBoons.length;
+    var numBoonAleatorio = Math.floor(Math.random() * tamanhoListaBoon);
+    var h2_boonId = document.getElementById(`h2_tituloBoon${i}`);
+    var p_textoBoonId = document.getElementById(`p_textoBoon${i}`);
+    var p_tipoBoonId = document.getElementById(`p_tipoBoon${i}`);
+    var button_boonId = document.getElementById(`button_boon${i}`);
+    var img_boonId = document.getElementById(`img_boon${i}`);
+
+    img_boonId.src = `${zeusBoons[numBoonAleatorio].imagem}`;
+    h2_boonId.innerHTML = `${zeusBoons[numBoonAleatorio].titulo}`;
+    p_textoBoonId.innerHTML = `${zeusBoons[numBoonAleatorio].descricao}`;
+    p_tipoBoonId.innerHTML = `${zeusBoons[numBoonAleatorio].tipo}`;
+    button_boonId.onclick = zeusBoons[numBoonAleatorio].efeito;
+    zeusBoons.splice(numBoonAleatorio, 1);
+  }
+
+
+
+</script>

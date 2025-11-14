@@ -119,3 +119,109 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+.boons .container-boons{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  gap: 20px ;
+}
+.boons .boon-1{
+  display: flex;
+  width: 100%;
+  border: solid #AFAA97 3px;
+  gap: 50px;
+  background-image: linear-gradient(45deg, black, #727272);
+  color: white;
+  border-radius: 5px;
+  transition: ease-in-out 0.3s;
+}
+
+.boons .boon-1 h2{
+  font-size: 30px;
+}
+.boons .boon-1 p{
+  font-size: 20px;
+}
+.boons .boon-1 .textos{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+}
+.boons .boon-1:hover{
+  transform: scale(1.03);
+  filter: brightness(1.2);
+ box-shadow: 0px 0px 28px 5px rgba(203,225,127,0.83) inset;
+-webkit-box-shadow: 0px 0px 28px 5px rgba(203,225,127,0.83) inset;
+-moz-box-shadow: 0px 0px 28px 5px rgba(203,225,127,0.83) inset;
+cursor: pointer;
+}
+.boons button .textos{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.boons .boon-2{
+  display: flex;
+  width: 100%;
+  border: solid #AFAA97 3px;
+  gap: 50px;
+  background-image: linear-gradient(45deg, black, #727272);
+  color: white;
+  border-radius: 5px;
+  transition: ease-in-out 0.3s;
+}
+
+.boons .boon-2 h2{
+  font-size: 30px;
+}
+.boons .boon-2 p{
+  font-size: 20px;
+}
+.boons .boon-2 .textos{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+}
+.boons .boon-2:hover{
+  transform: scale(1.03);
+  filter: brightness(1.2);
+ box-shadow: 0px 0px 28px 5px rgba(203,225,127,0.83) inset;
+-webkit-box-shadow: 0px 0px 28px 5px rgba(203,225,127,0.83) inset;
+-moz-box-shadow: 0px 0px 28px 5px rgba(203,225,127,0.83) inset;
+cursor: pointer;
+}
+.boons .boon-3{
+  display: flex;
+  width: 100%;
+  border: solid #AFAA97 3px;
+  gap: 50px;
+  background-image: linear-gradient(45deg, black, #727272);
+  color: white;
+  border-radius: 5px;
+  transition: ease-in-out 0.3s;
+}
+
+.boons .boon-3 h2{
+  font-size: 30px;
+}
+.boons .boon-3 p{
+  font-size: 20px;
+}
+.boons .boon-3 .textos{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+}
+.boons .boon-3:hover{
+  transform: scale(1.03);
+  filter: brightness(1.2);
+ box-shadow: 0px 0px 28px 5px rgba(203,225,127,0.83) inset;
+-webkit-box-shadow: 0px 0px 28px 5px rgba(203,225,127,0.83) inset;
+-moz-box-shadow: 0px 0px 28px 5px rgba(203,225,127,0.83) inset;
+cursor: pointer;
+}

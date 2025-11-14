@@ -1,0 +1,65 @@
+*{
+    margin: 0;
+    padding: 0;
+
+}
+
+body{
+    background-image: url(../assets/images/menu-background.png);
+    background-size: cover;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* padding: 0 80px ; */
+    align-items: center;
+}
+body img{
+ height: 100vh;
+}
+.container-menu{
+    padding: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 0 80px   ;
+}
+.container-menu .textos{
+    display: flex;
+    flex-direction: column;
+    gap: 15px   ;
+}
+div img{
+    height: 200px;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+    transition: ease-in 0.2s;
+}
+
+a:hover{
+    transform: scale(1.03);
+    color: #C9A847;
+    filter: brightness(1.3);
+    background-color: black;
+}
+.container-intro{
+    position: fixed ;
+    z-index: 2;
+    width: 100%;
+    height: 100vh;
+        animation: sumirVideo 2s ease forwards;
+        animation-delay: 1s;
+}
+.container-intro video{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+@keyframes sumirVideo{
+        to{
+            opacity: 0;
+            visibility: hidden  ;
+        }
+}
