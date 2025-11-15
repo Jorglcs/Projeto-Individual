@@ -20,7 +20,7 @@ body img{
     padding: 80px;
     display: flex;
     flex-direction: column;
-    gap: 0 80px   ;
+    gap: 80px   ;
 }
 .container-menu .textos{
     display: flex;

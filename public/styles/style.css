@@ -225,3 +225,11 @@ cursor: pointer;
 -moz-box-shadow: 0px 0px 28px 5px rgba(203,225,127,0.83) inset;
 cursor: pointer;
 }
+
+.container-central{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}

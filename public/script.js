@@ -33,19 +33,30 @@ function atualizarAndar() {
 }
 
 function ataqueBasico() {
+  var rouboVida = (player.danoAtaqueBasico * player.danoCritico * 10) / 100
   var numAleatorioCritico = Math.floor(Math.random() * 100 + 1); //gera numero de 0 a 100
   if (numAleatorioCritico <= player.chanceCritico) {
-    if (player.efeitoAtaquePrincipal == "ares") {
-      player.vidaAtual +=
-        (player.danoAtaqueBasico * player.danoCritico * 10) / 100;
-    } else if (player.efeitoAtaquePrincipal == "zeus") {
-      inimigo.paralisia = 1;
-    }
+    
+    
     inimigo.vidaAtual -= player.danoAtaqueBasico * player.danoCritico;
     console.log("DANO CRITICO!");
-  } else {
+    p_logPlayer.innerHTML = `Zagreus causou um ataque crítico causando ${player.danoAtaqueBasico *player.danoCritico} de dano.`
+    
+    if (player.efeitoAtaquePrincipal == "ares") {
+      player.vidaAtual +=
+        rouboVida;
+      p_logPlayer+= `<br>E curou ${rouboVida} de vida.`
+    } else if (player.efeitoAtaquePrincipal == "zeus") {
+      inimigo.paralisia = 1;
+      p_logPlayer+= `<br>E causou paralisia ao inimigo.`
+    }  
+
+    
+  } else{
     inimigo.vidaAtual -= player.danoAtaqueBasico;
+    p_logPlayer.innerHTML = `Zagreus causou ${player.danoAtaqueBasico} de dano.`
   }
+    
   p_vidaInimigo.innerHTML = `${inimigo.vidaAtual}/${inimigo.vidaMaxima}`;
   if (inimigo.vidaAtual <= 0) {
     selecionarPorta();
@@ -54,9 +65,12 @@ function ataqueBasico() {
   } else {
     if (inimigo.paralisia <= 0) {
       ataqueInimigo();
+    }else{
+      p_logInimigo.innerHTML = `<b style="color:yelow">O inimigo esta paralisado por ${inimigo.paralisia} turno(s).</b>`
+      inimigo.paralisia-=1
     }
   }
-  atualizar();
+  // atualizar();
 }
 
 function ataqueEspecial() {
@@ -73,6 +87,8 @@ function ataqueEspecial() {
       } else {
         ataqueInimigo();
       }
+        p_vidaInimigo.innerHTML = `${inimigo.vidaAtual}/${inimigo.vidaMaxima}`;
+        
     }
   } else alert("Cargas nescessarias insuficientes.");
   atualizar();
@@ -93,6 +109,9 @@ function ataqueInimigo() {
   var chanceAtaqueInimigo = Math.floor(Math.random() * 100 + 1); // de 1 a X e math flor para arrendondar para baixo (se for 1.1 vai ser = a 1)
   if (chanceAtaqueInimigo <= inimigo.chanceAtaque) {
     player.vidaAtual -= inimigo.danoAtaque;
+    p_logInimigo.innerHTML=`O inimigo causou ${inimigo.danoAtaque}.`
+  }else{
+    p_logInimigo.innerHTML=`O inimigo errou o ataque.`
   }
   p_vidaPlayer.innerHTML = `${player.vidaAtual}/${player.vidaMaxima}`;
 }
