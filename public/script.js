@@ -27,50 +27,65 @@ var inimigo = {
   paralisia: 0,
 };
 
+var finalizacao = {
+  andarAlcancado: 1,
+  inimigos: 0,
+  danoTotal: 0,
+  danoRecebido: 0,
+  qtdAtaqueBasico: 0,
+  qtdAtaqueEspecial: 0,
+  qtdCritico: 0,
+  qtdBencaos: 0,
+  qtdAres: 0,
+  qtdZeus: 0,
+  qtdPoseidon: 0,
+  qtdFontes: 0,
+  qtdCentauro: 0,
+};
 function atualizarAndar() {
   andarAtual++;
+  finalizacao.andarAlcancado++;
   p_andarAtual.innerHTML = andarAtual;
 }
 
 function ataqueBasico() {
-  var rouboVida = (player.danoAtaqueBasico * player.danoCritico * 10) / 100
+  finalizacao.qtdAtaqueBasico++;
+  var rouboVida = (player.danoAtaqueBasico * player.danoCritico * 10) / 100;
   var numAleatorioCritico = Math.floor(Math.random() * 100 + 1); //gera numero de 0 a 100
   if (numAleatorioCritico <= player.chanceCritico) {
-    
-    
+    finalizacao.danoTotal += player.danoAtaqueBasico * player.danoCritico;
+    finalizacao.qtdCritico++;
     inimigo.vidaAtual -= player.danoAtaqueBasico * player.danoCritico;
-    console.log("DANO CRITICO!");
-    p_logPlayer.innerHTML = `Zagreus causou um ataque crítico causando ${player.danoAtaqueBasico *player.danoCritico} de dano.`
-    
+    p_logPlayer.innerHTML = `Zagreus causou um ataque crítico causando ${(
+      player.danoAtaqueBasico * player.danoCritico
+    ).toFixed(2)} de dano.`;
+
     if (player.efeitoAtaquePrincipal == "ares") {
-      player.vidaAtual +=
-        rouboVida;
-      p_logPlayer+= `<br>E curou ${rouboVida} de vida.`
+      player.vidaAtual += rouboVida;
+      p_logPlayer.innerHTML += `<br>E curou ${rouboVida.toFixed(2)} de vida.`;
     } else if (player.efeitoAtaquePrincipal == "zeus") {
       inimigo.paralisia = 1;
-      p_logPlayer+= `<br>E causou paralisia ao inimigo.`
-    }  
-
-    
-  } else{
+      p_logPlayer.innerHTML += `<br>E causou paralisia ao inimigo.`;
+    }
+  } else {
+    finalizacao.danoTotal += player.danoAtaqueBasico;
     inimigo.vidaAtual -= player.danoAtaqueBasico;
-    p_logPlayer.innerHTML = `Zagreus causou ${player.danoAtaqueBasico} de dano.`
+    p_logPlayer.innerHTML = `Zagreus causou ${player.danoAtaqueBasico.toFixed(
+      2
+    )} de dano.`;
   }
-    
-  p_vidaInimigo.innerHTML = `${inimigo.vidaAtual}/${inimigo.vidaMaxima}`;
+
+  p_vidaInimigo.innerHTML = `${inimigo.vidaAtual.toFixed(2)}/${
+    inimigo.vidaMaxima
+  }`;
   if (inimigo.vidaAtual <= 0) {
+    finalizacao.inimigos++;
     selecionarPorta();
     randomizarPerkPortas();
     atualizarAndar();
   } else {
-    if (inimigo.paralisia <= 0) {
-      ataqueInimigo();
-    }else{
-      p_logInimigo.innerHTML = `<b style="color:yelow">O inimigo esta paralisado por ${inimigo.paralisia} turno(s).</b>`
-      inimigo.paralisia-=1
-    }
+    ataqueInimigo();
   }
-  // atualizar();
 }
 
 function ataqueEspecial() {
@@ -78,27 +93,38 @@ function ataqueEspecial() {
     var chanceAtaqueEspecial = Math.floor(Math.random() * 100 + 1);
     player.cargaEspecial -= player.cargaEspecialMinima;
     if (chanceAtaqueEspecial <= player.chanceAtaqueEspecial) {
+      finalizacao.danoTotal += player.danoAtaqueEspecial;
+      finalizacao.qtdAtaqueEspecial++;
       console.log("ACERTOU ATAQUE ESPECIAL");
+      p_logPlayer.innerHTML = `Zagreus acertou o <b>ataque especial.</b>`;
       inimigo.vidaAtual -= player.danoAtaqueEspecial;
-      if (inimigo.vidaAtual <= 0) {
-        selecionarPorta();
-        randomizarPerkPortas();
-        atualizarAndar();
-      } else {
-        ataqueInimigo();
+
+      p_vidaInimigo.innerHTML = `${inimigo.vidaAtual}/${inimigo.vidaMaxima}`;
+      if (player.efeitoAtaqueSecundario == "zeus") {
+        inimigo.paralisia = 2;
       }
-        p_vidaInimigo.innerHTML = `${inimigo.vidaAtual}/${inimigo.vidaMaxima}`;
-        
+    } else {
+      p_logPlayer.innerHTML = `Zagreus errou o <b>ataque especial.</b>`;
+    }
+    if (inimigo.vidaAtual <= 0) {
+      finalizacao.inimigos++;
+      selecionarPorta();
+      randomizarPerkPortas();
+      atualizarAndar();
+    } else {
+      ataqueInimigo();
     }
   } else alert("Cargas nescessarias insuficientes.");
   atualizar();
 }
 function sair() {
+  p_logPlayer.innerHTML = "";
+  p_logInimigo.innerHTML = "";
   atualizarDificuldade();
   atualizar();
   div_telaBatalha.style.display = "flex";
   inimigo.vidaAtual = inimigo.vidaMaxima;
-  p_vidaInimigo.innerHTML = inimigo.vidaAtual;
+  p_vidaInimigo.innerHTML = `${inimigo.vidaAtual}/${inimigo.vidaMaxima}`;
   p_danoInimigo.innerHTML = inimigo.danoAtaque;
   div_portas.style.display = "none";
   div_tudoBoon.style.display = "none";
@@ -107,13 +133,24 @@ function sair() {
 
 function ataqueInimigo() {
   var chanceAtaqueInimigo = Math.floor(Math.random() * 100 + 1); // de 1 a X e math flor para arrendondar para baixo (se for 1.1 vai ser = a 1)
-  if (chanceAtaqueInimigo <= inimigo.chanceAtaque) {
-    player.vidaAtual -= inimigo.danoAtaque;
-    p_logInimigo.innerHTML=`O inimigo causou ${inimigo.danoAtaque}.`
-  }else{
-    p_logInimigo.innerHTML=`O inimigo errou o ataque.`
+  if (inimigo.paralisia <= 0) {
+    if (chanceAtaqueInimigo <= inimigo.chanceAtaque) {
+      finalizacao.danoRecebido += inimigo.danoAtaque;
+      player.vidaAtual -= inimigo.danoAtaque;
+      p_logInimigo.innerHTML = `O inimigo causou ${inimigo.danoAtaque.toFixed(
+        1
+      )}.`;
+    } else {
+      p_logInimigo.innerHTML = `O inimigo errou o ataque.`;
+    }
+    p_vidaPlayer.innerHTML = `${player.vidaAtual}/${player.vidaMaxima}`;
+  } else {
+    p_logInimigo.innerHTML = `<b style="color:yelow">O inimigo esta paralisado por ${inimigo.paralisia} turno(s).</b>`;
+    inimigo.paralisia -= 1;
   }
-  p_vidaPlayer.innerHTML = `${player.vidaAtual}/${player.vidaMaxima}`;
+  if (player.vidaAtual <= 0) {
+    exibirRelatorio();
+  }
 }
 var numPortas = 0;
 function selecionarPorta() {
@@ -178,18 +215,21 @@ function telaSelecionarBoons() {
 }
 
 function perk_coracaoCenatauro() {
+  finalizacao.qtdCentauro++;
   player.vidaMaxima += 25;
   player.vidaAtual += 25;
   sair();
 }
 
 function perk_fonteCura() {
+  finalizacao.qtdFontes++;
   player.vidaAtual = player.vidaMaxima;
   player.cargaEspecial = player.cargaEspecialMaxima;
   sair();
 }
 
 function perk_zeusBoons() {
+  finalizacao.qtdZeus++;
   telaSelecionarBoons();
   var zeusBoons = [
     {
@@ -199,9 +239,13 @@ function perk_zeusBoons() {
       descricao: `Acertos críticos paralisam o inimigo por 1 turno.`,
       tipo: `Ataque Básico (único).`,
       efeito: function boon1() {
-        player.efeitoAtaquePrincipal = "zeus";
-        img_ataqueBasico.src = "assets/images/ataque-basico-zeus.png";
-        sair();
+        if (player.efeitoAtaquePrincipal == false) {
+          player.efeitoAtaquePrincipal = "zeus";
+          img_ataqueBasico.src = "assets/images/ataque-basico-zeus.png";
+          sair();
+        } else {
+          alert("O ataque básico ja possui uma benção selecionada!");
+        }
       },
     },
     {
@@ -211,10 +255,14 @@ function perk_zeusBoons() {
       descricao: `O ataque especial causa -20% de dano, Paralisa o inimigo por 2 turnos, e consome 2 cargas.`,
       tipo: `Ataque Especial (único).`,
       efeito: function boon2() {
-        player.efeitoAtaqueEspecial = "zeus";
-        player.danoAtaqueEspecial *= 0.8;
-        img_ataqueEspecial.src = "assets/images/ataque-especial-zeus.png";
-        sair();
+        if (player.efeitoAtaqueSecundario == false) {
+          player.efeitoAtaqueSecundario = "zeus";
+          player.danoAtaqueEspecial *= 0.8;
+          img_ataqueEspecial.src = "assets/images/ataque-especial-zeus.png";
+          sair();
+        } else {
+          alert("O ataque especial ja possui uma bençao selecionada!");
+        }
       },
     },
     {
@@ -289,6 +337,7 @@ function perk_zeusBoons() {
 }
 
 function perk_poseidonBoons() {
+  finalizacao.qtdPoseidon++;
   telaSelecionarBoons();
   var poseidonBoons = [
     {
@@ -298,9 +347,13 @@ function perk_poseidonBoons() {
       descricao: `Acertos críticos causam um adicional de 40% do dano base.`,
       tipo: `Ataque Básico (único).`,
       efeito: function boon1() {
-        player.efeitoAtaquePrincipal = "poseidon";
-        img_ataqueBasico.src = "assets/images/ataque-basico-poseidon.png";
-        sair();
+        if (player.efeitoAtaquePrincipal == false) {
+          player.efeitoAtaquePrincipal = "poseidon";
+          img_ataqueBasico.src = "assets/images/ataque-basico-poseidon.png";
+          sair();
+        } else {
+          alert("O ataque básico ja possui uma benção selecionada!");
+        }
       },
     },
     {
@@ -310,10 +363,14 @@ function perk_poseidonBoons() {
       descricao: `o Ataque espeical causa +40% de dano, +10% de chance de erro, e consome 2 cargas`,
       tipo: `Ataque Especial (único).`,
       efeito: function boon2() {
-        player.efeitoAtaqueEspecial = "poseidon";
-        player.danoAtaqueEspecial *= 1.4;
-        img_ataqueEspecial.src = "assets/images/ataque-especial-poseidon.png";
-        sair();
+        if (player.efeitoAtaqueSecundario == false) {
+          player.efeitoAtaqueSecundario = "poseidon";
+          player.danoAtaqueEspecial *= 1.4;
+          img_ataqueEspecial.src = "assets/images/ataque-especial-poseidon.png";
+          sair();
+        } else {
+          alert("O ataque especial ja possui uma benção selecionada!");
+        }
       },
     },
     {
@@ -387,6 +444,7 @@ function perk_poseidonBoons() {
   }
 }
 function perk_aresBoons() {
+  finalizacao.qtdAres++;
   var aresBoons = [
     {
       nome: "Ataque basico ares",
@@ -395,10 +453,14 @@ function perk_aresBoons() {
       descricao: `Acertos críticos aplicam Roubo de Vida igual a 10% do dano causado.`,
       tipo: `Ataque Básico (único).`,
       efeito: function boon1() {
-        player.efeitoAtaquePrincipal = "ares";
-        img_ataqueBasico.src = "assets/images/ataque-basico-ares.png";
+        if (player.efeitoAtaquePrincipal == false) {
+          player.efeitoAtaquePrincipal = "ares";
+          img_ataqueBasico.src = "assets/images/ataque-basico-ares.png";
 
-        sair();
+          sair();
+        } else {
+          alert("O ataque básico ja possui uma benção selecionada!");
+        }
       },
     },
     {
@@ -408,10 +470,14 @@ function perk_aresBoons() {
       descricao: `O ataque especial causa +25% de dano, mas gasta 2 cargas e Zagreus perde 5% da vida atual.`,
       tipo: `Ataque Especial (único).`,
       efeito: function boon2() {
-        player.efeitoAtaqueEspecial = "ares";
-        player.danoAtaqueEspecial *= 1.25;
-        img_ataqueEspecial.src = "assets/images/ataque-especial-ares.png";
-        sair();
+        if (player.efeitoAtaqueSecundario == false) {
+          player.efeitoAtaqueSecundario = "ares";
+          player.danoAtaqueEspecial *= 1.25;
+          img_ataqueEspecial.src = "assets/images/ataque-especial-ares.png";
+          sair();
+        } else {
+          alert("O ataque especial ja possui uma benção selecionada!");
+        }
       },
     },
     {
@@ -484,7 +550,6 @@ function perk_aresBoons() {
   }
 }
 
-
 function atualizar() {
   p_vidaPlayer.innerHTML = `${player.vidaAtual}/${player.vidaMaxima}`;
   p_danoAtaque.innerHTML = `Dano: ${player.danoAtaqueBasico}`;
@@ -501,4 +566,28 @@ function atualizar() {
 function atualizarDificuldade() {
   inimigo.vidaMaxima += inimigo.vidaMaxima * 0.1;
   inimigo.danoAtaque += inimigo.danoAtaque * 0.07;
+}
+
+function exibirRelatorio() {
+  finalizacao.qtdBencaos =
+    Number(finalizacao.qtdZeus) +
+    Number(finalizacao.qtdAres) +
+    Number(finalizacao.qtdPoseidon);
+  div_finalizacao.style.display = "flex";
+  div_telaBatalha.style.display = "none";
+  p_finalizacaoAndar.innerHTML = `${finalizacao.andarAlcancado}`;
+  p_finalizacaoInimigos.innerHTML = `${finalizacao.inimigos}`;
+  p_finalizacaoDanoTotal.innerHTML = `${finalizacao.danoTotal.toFixed(2)}`;
+  p_finalizacaoDanoRecebido.innerHTML = `${finalizacao.danoRecebido.toFixed(
+    2
+  )}`;
+  p_finalizacaoQtdAtaqueBasico.innerHTML = `${finalizacao.qtdAtaqueBasico}`;
+  p_finalizacaoQtdAtaqueEspecial.innerHTML = `${finalizacao.qtdAtaqueEspecial}`;
+  p_finalizacaoQtdCritico.innerHTML = `${finalizacao.qtdCritico}`;
+  p_finalizacaoQtdBencaos.innerHTML = `${finalizacao.qtdBencaos}`;
+  p_finalizacaoQtdZeus.innerHTML = `${finalizacao.qtdZeus}`;
+  p_finalizacaoQtdAres.innerHTML = `${finalizacao.qtdAres}`;
+  p_finalizacaoQtdPoseidon.innerHTML = `${finalizacao.qtdPoseidon}`;
+  p_finalizacaoQtdFontes.innerHTML = `${finalizacao.qtdFontes}`;
+  p_finalizacaoQtdCentauro.innerHTML = `${finalizacao.qtdCentauro}`;
 }

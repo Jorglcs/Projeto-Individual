@@ -41,21 +41,24 @@
       </div>
       <!-- Personagem Inimigo -->
       <!-- BOTAO ENCERRAR CORRIDA -->
-       <div class="container-central">
-      <div class="status-corrida">
-        <div>
-          <p>Andar atual:</p>
-          <p id="p_andarAtual">1</p>
+      <div class="container-central">
+        <div class="status-corrida">
+          <div>
+            <p>Andar atual:</p>
+            <p id="p_andarAtual">1</p>
+          </div>
+          <button onclick="exibirRelatorio()">Encerrar corrida</button>
         </div>
-        <button>Encerrar corrida</button>
-      </div>
-      <div><p id="p_logPlayer">Zagreus</p><p id="p_logInimigo">Inimigo</p></div>
+        <div class="logs">
+          <p id="p_logPlayer"></p>
+          <p id="p_logInimigo"></p>
+        </div>
       </div>
       <!-- BOTAO ENCERRAR CORRIDA -->
       <!-- Personagem player -->
       <div class="zagreus">
         <div class="zagreus-status">
-          <p>Zagreus</p>
+          <h4>Zagreus</h4>
           <img src="assets/images/Zagreus-_1_.png" alt="" />
 
           <p>❤ Vida:</p>
@@ -79,7 +82,7 @@
           </button>
           <button class="ataque-especial" onclick="ataqueEspecial()">
             <img
-              src="assets/images/Phalanx_Shot_I.png"
+              src="assets/images/Lightning_Phalanx_I.png"
               alt=""
               id="img_ataqueEspecial"
             />
@@ -117,6 +120,7 @@
     <!-- =======================================================BENÇÃOS=============================================== -->
 
     <div id="div_tudoBoon" style="display: none" class="boons">
+      <h1>Escolha uma benção.</h1>
       <div class="container-boons">
         <div id="button_boon1" onclick="" class="boon-1">
           <img id="img_boon1" src="" alt="" />
@@ -152,6 +156,70 @@
     </div>
 
     <!-- ========================================================================================================== -->
+    <!-- ===========================TELA FINALIZAÇÃO================================ -->
+    <div class="finalizacao" id="div_finalizacao">
+      <div class="container-finalizacao">
+        <h1>Fim da fuga.</h1>
+        <h2>Relatório da fuga:</h2>
+        <div class="textos">
+          <div>
+            <b>Andar alcançado:</b>
+            <p id="p_finalizacaoAndar">0</p>
+          </div>
+          <div>
+            <b>Total de inimigo derrotados:</b>
+            <p id="p_finalizacaoInimigos">0</p>
+          </div>
+          <div>
+            <b>Dano total causado:</b>
+            <p id="p_finalizacaoDanoTotal">0</p>
+          </div>
+          <div>
+            <b>Dano total recebido:</b>
+            <p id="p_finalizacaoDanoRecebido">0</p>
+          </div>
+          <div>
+            <b>Ataques básicos usados:</b>
+            <p id="p_finalizacaoQtdAtaqueBasico">0</p>
+          </div>
+          <div>
+            <b>Ataques especiais usados:</b>
+            <p id="p_finalizacaoQtdAtaqueEspecial">0</p>
+          </div>
+          <div>
+            <b>Ataques críticos causados:</b>
+            <p id="p_finalizacaoQtdCritico">0</p>
+          </div>
+          <div>
+            <b>Total de bençãos adquiridas:</b>
+            <p id="p_finalizacaoQtdBencaos">0</p>
+          </div>
+          <div>
+            <b>Total de bençãos de Zeus adquiridas:</b>
+            <p id="p_finalizacaoQtdZeus">0</p>
+          </div>
+          <div>
+            <b>Total de bençãos de Ares adquiridas:</b>
+            <p id="p_finalizacaoQtdAres">0</p>
+          </div>
+          <div>
+            <b>Total de bençãos de Poseidon adquiridas:</b>
+            <p id="p_finalizacaoQtdPoseidon">0</p>
+          </div>
+          <div>
+            <b>Total de fontes de cura escolhidas:</b>
+            <p id="p_finalizacaoQtdFontes">0</p>
+          </div>
+          <div>
+            <b>Total corações de centauro adquiridas:</b>
+            <p id="p_finalizacaoQtdCentauro">0</p>
+          </div>
+        </div>
+        <a href="game.html"><button>Jogar Novamente</button></a>
+
+        <a href=""><button>Sair</button></a>
+      </div>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>

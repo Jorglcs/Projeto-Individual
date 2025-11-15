@@ -1,6 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
 * {
   margin: 0;
   padding: 0;
+  font-family: "Spectral";
 }
 
 body {
@@ -26,10 +28,15 @@ body {
   gap: 50px;
 }
 .telaBatalha .zagreus-status {
+  color: white;
+  background-color: #4e4e4c;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: solid;
+  border: solid 3px black;
+}
+.telaBatalha .zagreus-status h4 {
+  border-bottom: solid 3px black;
 }
 
 .telaBatalha .zagreus-status img {
@@ -45,6 +52,18 @@ body {
   display: flex;
   flex-direction: row;
   gap: 50px;
+  transition: ease-in-out 0.3s;
+}
+.telaBatalha .zagreus .botoes button {
+  color: white;
+  transition: ease-in-out 0.3s;
+  background-image: linear-gradient(0deg, black, #3c4137);
+  border: black 3px solid;
+}
+.telaBatalha .zagreus .botoes button:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+  filter: brightness(1.3);
 }
 .telaBatalha .zagreus .botoes img {
   height: 100px;
@@ -120,16 +139,16 @@ body {
   justify-content: center;
 }
 
-.boons .container-boons{
+.boons .container-boons {
   display: flex;
   flex-direction: column;
   width: 50%;
-  gap: 20px ;
+  gap: 20px;
 }
-.boons .boon-1{
+.boons .boon-1 {
   display: flex;
   width: 100%;
-  border: solid #AFAA97 3px;
+  border: solid #afaa97 3px;
   gap: 50px;
   background-image: linear-gradient(45deg, black, #727272);
   color: white;
@@ -137,36 +156,35 @@ body {
   transition: ease-in-out 0.3s;
 }
 
-.boons .boon-1 h2{
+.boons .boon-1 h2 {
   font-size: 30px;
 }
-.boons .boon-1 p{
+.boons .boon-1 p {
   font-size: 20px;
 }
-.boons .boon-1 .textos{
+.boons .boon-1 .textos {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-
 }
-.boons .boon-1:hover{
+.boons .boon-1:hover {
   transform: scale(1.03);
   filter: brightness(1.2);
- box-shadow: 0px 0px 28px 5px rgba(203,225,127,0.83) inset;
--webkit-box-shadow: 0px 0px 28px 5px rgba(203,225,127,0.83) inset;
--moz-box-shadow: 0px 0px 28px 5px rgba(203,225,127,0.83) inset;
-cursor: pointer;
+  box-shadow: 0px 0px 28px 5px rgba(203, 225, 127, 0.83) inset;
+  -webkit-box-shadow: 0px 0px 28px 5px rgba(203, 225, 127, 0.83) inset;
+  -moz-box-shadow: 0px 0px 28px 5px rgba(203, 225, 127, 0.83) inset;
+  cursor: pointer;
 }
-.boons button .textos{
+.boons button .textos {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
 }
 
-.boons .boon-2{
+.boons .boon-2 {
   display: flex;
   width: 100%;
-  border: solid #AFAA97 3px;
+  border: solid #afaa97 3px;
   gap: 50px;
   background-image: linear-gradient(45deg, black, #727272);
   color: white;
@@ -174,30 +192,29 @@ cursor: pointer;
   transition: ease-in-out 0.3s;
 }
 
-.boons .boon-2 h2{
+.boons .boon-2 h2 {
   font-size: 30px;
 }
-.boons .boon-2 p{
+.boons .boon-2 p {
   font-size: 20px;
 }
-.boons .boon-2 .textos{
+.boons .boon-2 .textos {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-
 }
-.boons .boon-2:hover{
+.boons .boon-2:hover {
   transform: scale(1.03);
   filter: brightness(1.2);
- box-shadow: 0px 0px 28px 5px rgba(203,225,127,0.83) inset;
--webkit-box-shadow: 0px 0px 28px 5px rgba(203,225,127,0.83) inset;
--moz-box-shadow: 0px 0px 28px 5px rgba(203,225,127,0.83) inset;
-cursor: pointer;
+  box-shadow: 0px 0px 28px 5px rgba(203, 225, 127, 0.83) inset;
+  -webkit-box-shadow: 0px 0px 28px 5px rgba(203, 225, 127, 0.83) inset;
+  -moz-box-shadow: 0px 0px 28px 5px rgba(203, 225, 127, 0.83) inset;
+  cursor: pointer;
 }
-.boons .boon-3{
+.boons .boon-3 {
   display: flex;
   width: 100%;
-  border: solid #AFAA97 3px;
+  border: solid #afaa97 3px;
   gap: 50px;
   background-image: linear-gradient(45deg, black, #727272);
   color: white;
@@ -205,31 +222,79 @@ cursor: pointer;
   transition: ease-in-out 0.3s;
 }
 
-.boons .boon-3 h2{
+.boons .boon-3 h2 {
   font-size: 30px;
 }
-.boons .boon-3 p{
+.boons .boon-3 p {
   font-size: 20px;
 }
-.boons .boon-3 .textos{
+.boons .boon-3 .textos {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-
 }
-.boons .boon-3:hover{
+.boons .boon-3:hover {
   transform: scale(1.03);
   filter: brightness(1.2);
- box-shadow: 0px 0px 28px 5px rgba(203,225,127,0.83) inset;
--webkit-box-shadow: 0px 0px 28px 5px rgba(203,225,127,0.83) inset;
--moz-box-shadow: 0px 0px 28px 5px rgba(203,225,127,0.83) inset;
-cursor: pointer;
+  box-shadow: 0px 0px 28px 5px rgba(203, 225, 127, 0.83) inset;
+  -webkit-box-shadow: 0px 0px 28px 5px rgba(203, 225, 127, 0.83) inset;
+  -moz-box-shadow: 0px 0px 28px 5px rgba(203, 225, 127, 0.83) inset;
+  cursor: pointer;
 }
 
-.container-central{
+.container-central {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.container-central .logs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
 
+.finalizacao {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  display: none;
+  flex-direction: column;
+}
+.finalizacao .container-finalizacao {
+  color: white;
+  background-color: #343331;
+  border: solid #afaa97;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+  height: 70%;
+  border-radius: 15px;
+  justify-content: center;
+  gap: 10px;
+}
+.finalizacao .container-finalizacao .textos {
+  display: flex;
+  flex-direction: column;
+}
+.finalizacao .container-finalizacao div {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  font-size: 18px;
+}
+.finalizacao .container-finalizacao button {
+  width: 150px;
+  border: solid black 2px;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+
+  cursor: pointer;
+}
+.finalizacao .container-finalizacao button:hover {
+  transform: scale(1.05);
 }
