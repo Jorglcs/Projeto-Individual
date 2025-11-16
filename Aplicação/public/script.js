@@ -180,15 +180,32 @@ function randomizarPerkPortas() {
       "assets/images/centaurhearth.png",
       "Coração de centauro",
       perk_coracaoCenatauro,
+      "Recebe +25 de vida máxima",
     ],
-    ["assets/images/Ares_symbol.png", "Benção de Ares", perk_aresBoons],
-    ["assets/images/Zeus_symbol.png", "Benção de Zeus", perk_zeusBoons],
+    [
+      "assets/images/Ares_symbol.png",
+      "Benção de Ares",
+      perk_aresBoons,
+      "Escolha uma entre<br>3 bençãos de Ares",
+    ],
+    [
+      "assets/images/Zeus_symbol.png",
+      "Benção de Zeus",
+      perk_zeusBoons,
+      "Escolha uma entre 3<br>bençãos de Zeus",
+    ],
     [
       "assets/images/Poseidon_symbol.png",
       "Benção de Poseidon",
       perk_poseidonBoons,
+      "Escolha uma entre 3<br>bençãos de Poseidon",
     ],
-    ["assets/images/fonte_cura.png", "Fonte de cura", perk_fonteCura],
+    [
+      "assets/images/fonte_cura.png",
+      "Fonte de cura",
+      perk_fonteCura,
+      "Recupera toda a vida.",
+    ],
   ];
 
   // a lista dos perks vai ser [img,nome,descricao]
@@ -199,11 +216,13 @@ function randomizarPerkPortas() {
     var img_portaid = document.getElementById(`img_porta${i}`);
     var p_portaid = document.getElementById(`p_porta${i}`);
     var button_portaid = document.getElementById(`button_porta${i}`);
+    var p_descricaoid = document.getElementById(`p_descricaoPorta${i}`);
 
     var numListaAleatorio = Math.floor(Math.random() * tamanholistaPerks); //gerar numero de 0 a tamanho da lista -1 pq começa do 0
     img_portaid.src = listaPerks[numListaAleatorio][0];
     p_portaid.innerHTML = listaPerks[numListaAleatorio][1];
     button_portaid.onclick = listaPerks[numListaAleatorio][2];
+    p_descricaoid.innerHTML = listaPerks[numListaAleatorio][3];
     listaPerks.splice(numListaAleatorio, 1);
   }
 }

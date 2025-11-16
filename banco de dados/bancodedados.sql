@@ -38,7 +38,8 @@ create table corridaBuff(
 	fkBuff int,
     constraint corridaBuffxBuff
 		foreign key (fkBuff) references buff(idBuff),
-	quantidade int
+	quantidade int,
+    primary key(fkCorrida,fkBuff)
 );
 
 -- inserir dados
@@ -53,3 +54,10 @@ insert into buff (nome,descricao,tipo ) values
 create user 'jorge'@'%' identified by '2681';
 grant all on projetoIndividual.* to 'jorge'@'%';
 flush privileges;
+select * from usuario;
+select * from corrida;
+
+select * from corrida
+	join usuario on idUsuario=fkUsuario;
+    
+    select idCorrida from corrida where fkUsuario = 5 order by idCorrida desc limit 1;
