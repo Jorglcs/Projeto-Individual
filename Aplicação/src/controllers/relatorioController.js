@@ -13,19 +13,20 @@ function listar(req, res) {
 }
 
 function cadastrar(req, res) {
-  var andarAlcancado = req.body.andarAlcancadoVar;
-  var inimigos = req.body.inimigosVar;
-  var danoTotal = req.body.danoTotalVar;
-  var danoRecebido = req.body.danoRecebidoVar;
-  var qtdAtaqueBasico = req.body.qtdAtaqueBasicoVar;
-  var qtdAtaqueEspecial = req.body.qtdAtaqueEspecialVar;
-  var qtdCritico = req.body.qtdCriticoVar;
-  var qtdBencaos = req.body.qtdBencaosVar;
-  var qtdZeus = req.body.qtdZeusVar;
-  var qtdAres = req.body.qtdAresVar;
-  var qtdPoseidon = req.body.qtdPoseidonVar;
-  var qtdFontes = req.body.qtdFontesVar;
-  var qtdCentauro = req.body.qtdCentauroVar;
+  var andarAlcancado = req.body.andarAlcancadoServer;
+  var inimigos = req.body.inimigosServer;
+  var danoTotal = req.body.danoTotalServer;
+  var danoRecebido = req.body.danoRecebidoServer;
+  var qtdAtaqueBasico = req.body.qtdAtaqueBasicoServer;
+  var qtdAtaqueEspecial = req.body.qtdAtaqueEspecialServer;
+  var qtdCritico = req.body.qtdCriticoServer;
+  var qtdBencaos = req.body.qtdBencaosServer;
+  var qtdZeus = req.body.qtdZeusServer;
+  var qtdAres = req.body.qtdAresServer;
+  var qtdPoseidon = req.body.qtdPoseidonServer;
+  var qtdFontes = req.body.qtdFontesServer;
+  var qtdCentauro = req.body.qtdCentauroServer;
+  var fkUsuario = req.body.fkUsuarioServer;
 
   if (andarAlcancado == undefined) {
     res.status(400).send("Seu andarAlcancado está undefined!");
@@ -53,22 +54,25 @@ function cadastrar(req, res) {
     res.status(400).send("Seu qtdFontes está undefined!");
   } else if (qtdCentauro == undefined) {
     res.status(400).send("Seu qtdCentauro está undefined!");
+  } else if (fkUsuario == undefined) {
+    res.status(400).send("Seu fkUsuario está undefined!");
   } else {
     relatorioModel
       .cadastrar(
+        fkUsuario,
         andarAlcancado,
         inimigos,
         danoTotal,
         danoRecebido,
         qtdAtaqueBasico,
         qtdAtaqueEspecial,
-        qtdCritico,
-        qtdBencaos,
-        qtdZeus,
-        qtdAres,
-        qtdPoseidon,
-        qtdFontes,
-        qtdCentauro
+        qtdCritico
+        // qtdBencaos,
+        // qtdZeus,
+        // qtdAres,
+        // qtdPoseidon,
+        // qtdFontes,
+        // qtdCentauro,
       )
       .then(function (resposta) {
         res.status(200).send("relatorio criado com sucesso");

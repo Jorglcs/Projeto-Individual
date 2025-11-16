@@ -590,78 +590,84 @@ function exibirRelatorio() {
   p_finalizacaoQtdPoseidon.innerHTML = `${finalizacao.qtdPoseidon}`;
   p_finalizacaoQtdFontes.innerHTML = `${finalizacao.qtdFontes}`;
   p_finalizacaoQtdCentauro.innerHTML = `${finalizacao.qtdCentauro}`;
+}
 
-  // API
+// API
 
-  function finalizarCorrida() {
-    //salvar variaveis
-    var andarAlcancadoVar = finalizacao.andarAlcancado;
-    var inimigosVar = finalizacao.inimigos;
-    var danoTotalVar = finalizacao.danoTotal.toFixed(2);
-    var danoRecebidoVar = finalizacao.danoRecebido.toFixed(2);
-    var qtdAtaqueBasicoVar = finalizacao.qtdAtaqueBasico;
-    var qtdAtaqueEspecialVar = finalizacao.qtdAtaqueEspecial;
-    var qtdCriticoVar = finalizacao.qtdCritico;
-    var qtdBencaosVar = finalizacao.qtdBencaos;
-    var qtdZeusVar = finalizacao.qtdZeus;
-    var qtdAresVar = finalizacao.qtdAres;
-    var qtdPoseidonVar = finalizacao.qtdPoseidon;
-    var qtdFontesVar = finalizacao.qtdFontes;
-    var qtdCentauroVar = finalizacao.qtdCentauro;
+function finalizarCorrida() {
+  //salvar variaveis
+  var andarAlcancadoVar = finalizacao.andarAlcancado;
+  var inimigosVar = finalizacao.inimigos;
+  var danoTotalVar = finalizacao.danoTotal.toFixed(2);
+  var danoRecebidoVar = finalizacao.danoRecebido.toFixed(2);
+  var qtdAtaqueBasicoVar = finalizacao.qtdAtaqueBasico;
+  var qtdAtaqueEspecialVar = finalizacao.qtdAtaqueEspecial;
+  var qtdCriticoVar = finalizacao.qtdCritico;
+  var qtdBencaosVar = finalizacao.qtdBencaos;
+  var qtdZeusVar = finalizacao.qtdZeus;
+  var qtdAresVar = finalizacao.qtdAres;
+  var qtdPoseidonVar = finalizacao.qtdPoseidon;
+  var qtdFontesVar = finalizacao.qtdFontes;
+  var qtdCentauroVar = finalizacao.qtdCentauro;
+  var fkUsuarioVar = sessionStorage.ID_USUARIO;
+  // validação
+  // if (
+  //   emailVar == "" ||
+  //   nomeVar == "" ||
+  //   nicknameVar == "" ||
+  //   senhaVar == ""
+  // ) {
+  //   p_mensagemErro.style.display = "block";
+  //   p_mensagemErro.innerHTML =
+  //     "(Mensagem de erro para todos os campos em branco)";
 
-    // validação
-    // if (
-    //   emailVar == "" ||
-    //   nomeVar == "" ||
-    //   nicknameVar == "" ||
-    //   senhaVar == ""
-    // ) {
-    //   p_mensagemErro.style.display = "block";
-    //   p_mensagemErro.innerHTML =
-    //     "(Mensagem de erro para todos os campos em branco)";
+  //   return false;
+  // } else {
+  //   setInterval(sumirMensagem, 5000);
+  // }
+  // Enviando o valor da nova input
 
-    //   return false;
-    // } else {
-    //   setInterval(sumirMensagem, 5000);
-    // }
-    // Enviando o valor da nova input
+  fetch("/relatorio/cadastrar", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      // crie um atributo que recebe o valor recuperado aqui
+      // Agora vá para o arquivo routes/usuario.js
+      fkUsuarioServer: fkUsuarioVar,
+      andarAlcancadoServer: andarAlcancadoVar,
+      inimigosServer: inimigosVar,
+      danoTotalServer: danoTotalVar,
+      danoRecebidoServer: danoRecebidoVar,
+      qtdAtaqueBasicoServer: qtdAtaqueBasicoVar,
+      qtdAtaqueEspecialServer: qtdAtaqueEspecialVar,
+      qtdCriticoServer: qtdCriticoVar,
+      qtdBencaosServer: qtdBencaosVar,
+      qtdZeusServer: qtdZeusVar,
+      qtdAresServer: qtdAresVar,
+      qtdPoseidonServer: qtdPoseidonVar,
+      qtdFontesServer: qtdFontesVar,
+      qtdCentauroServer: qtdCentauroVar,
+    }),
+  });
+  // .then(function (resposta) {
+  //   console.log("resposta: ", resposta);
 
-    fetch("/usuarios/cadastrar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
-        nomeServer: nomeVar,
-        emailServer: emailVar,
-        senhaServer: senhaVar,
-        nicknameServer: nicknameVar,
-      }),
-    })
-      .then(function (resposta) {
-        console.log("resposta: ", resposta);
+  //   if (resposta.ok) {
+  //     p_mensagemErro.innerHTML =
+  //       "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
-        if (resposta.ok) {
-          p_mensagemErro.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+  //     setTimeout(() => {
+  //       window.location = "login.html";
+  //     }, "2000");
+  //   } else {
+  //     throw "Houve um erro ao tentar realizar o cadastro!";
+  //   }
+  // })
+  // .catch(function (resposta) {
+  //   console.log(`#ERRO: ${resposta}`);
+  // });
 
-          setTimeout(() => {
-            window.location = "login.html";
-          }, "2000");
-        } else {
-          throw "Houve um erro ao tentar realizar o cadastro!";
-        }
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
-
-    return false;
-  }
-
-  function sumirMensagem() {
-    p_mensagemErro.style.display = "none";
-  }
+  // return false;
 }
