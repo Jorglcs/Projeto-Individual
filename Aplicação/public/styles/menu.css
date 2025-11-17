@@ -12,12 +12,13 @@ body{
     justify-content: space-between;
     /* padding: 0 80px ; */
     align-items: center;
+    height: 100vh;
 }
 body img{
  height: 100vh;
 }
 .container-menu{
-    padding: 80px;
+    padding: 0 80px;
     display: flex;
     flex-direction: column;
     gap: 80px   ;
@@ -62,4 +63,9 @@ a:hover{
             opacity: 0;
             visibility: hidden  ;
         }
+}
+
+#h1_nickname{
+    color: white;
+    text-decoration: underline;
 }
