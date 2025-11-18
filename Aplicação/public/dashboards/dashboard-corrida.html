@@ -4,9 +4,53 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>hades-endgame</title>
-    <link rel="icon" href="assets/images/icon 1.png" />
+    <!-- <link rel="icon" href="../assets/images/icon 1." /> -->
+    <link rel="stylesheet" href="../styles/dashboard-corrida.css">
+     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
-    <div></div>
+    <div class="container-dashboard">
+      <div class="left-bar">
+        <img src="../assets/images/hades-logo-branca.png" alt="">
+        <h1>STATUS DA CORRIDA</h1>
+        <a href=""><button>Jogar denovo</button></a>
+        <a href=""><button>Exibir Perfil</button></a>
+      </div>
+      <div class="dashboard">
+        <div class="kpis">
+          <div class="kpi"><h3>Andar alcançado:</h3><p>10</p></div>
+          <div class="kpi"><h3>Ataques Basicos utilizados: <p>57</p></h3></div>
+          <div class="kpi"><h3>Ataques Especiais utilizados:</h3>69</div>
+          <div class="kpi"><h3>Inimigos Derrotados</h3><p>9</p></div>
+        
+        </div>
+        <div class="graficos">
+          <div><canvas id="linha"></canvas></div>
+          <div><canvas id="barra"></canvas></div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
+
+<script> // Capturando o elemento canvas pelo id 
+  var ctx = document.getElementById('linha').getContext('2d');
+  // Criando o gráfico de linha usando o Chart.js
+  var myChart = new Chart(ctx, {
+      type: 'line', // Tipo de gráfico: linha
+      data: { // Dados para o gráfico
+          labels: '1','2', // Rótulos no eixo X
+          datasets: [{ 
+              label: ['Votos'], // Nome do conjunto de dados
+              data: [2,3], // Dados dos votos
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)', // Cor de fundo das linhas
+              ],
+              borderColor: [
+                  'rgba(255, 99, 132, 1)', // Cor da borda das linhas
+              ],
+              borderWidth: 1 // Largura da borda das linhas
+          }]
+      },
+  });
+</script>

@@ -1,0 +1,50 @@
+
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(255, 255, 255) ;
+}
+
+.container-dashboard{
+    height: 100%;
+    width: 100vw;
+    display: flex;
+}
+.container-dashboard .left-bar{
+    color: white;
+    background-image: linear-gradient(
+180deg, #0F2822, #010302);
+    display: flex;
+    flex-direction: column;
+    width: 15%;
+    height: 100%;
+    align-items: center;
+    justify-content: space-around;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+.container-dashboard .left-bar h1{
+    /* font-size: 20px; */
+    text-align: center;
+}
+.container-dashboard .left-bar img{
+    width: 100%;
+}
+.container-dashboard .dashboard{
+    width: 85%;
+}
+.container-dashboard .dashboard .kpis{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+    
+
+}
