@@ -66,13 +66,13 @@ function cadastrar(req, res) {
         danoRecebido,
         qtdAtaqueBasico,
         qtdAtaqueEspecial,
-        qtdCritico
+        qtdCritico,
         // qtdBencaos,
-        // qtdZeus,
-        // qtdAres,
-        // qtdPoseidon,
-        // qtdFontes,
-        // qtdCentauro,
+        qtdZeus,
+        qtdAres,
+        qtdPoseidon,
+        qtdFontes,
+        qtdCentauro
       )
       .then(function (resposta) {
         res.status(200).send("relatorio criado com sucesso");
@@ -83,7 +83,25 @@ function cadastrar(req, res) {
   }
 }
 
+function buscarAndarAlcancado(req, res) {
+  var idUsuario = req.params.idUsuario;
+  if (idUsuario == undefined) {
+    res.status(400).send;
+    ("O id do usuario está undefined");
+  } else {
+    relatorioModel
+      .buscarAndarAlcancado(idUsuario)
+      .then(function (resultado) {
+        // precisamos informar que o resultado voltará para o front-end como uma resposta em json
+        res.status(200).json(resultado);
+      })
+      .catch(function (erro) {
+        res.status(500).json(erro.sqlMessage);
+      });
+  }
+}
 module.exports = {
   listar,
   cadastrar,
+  buscarAndarAlcancado,
 };

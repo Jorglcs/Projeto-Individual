@@ -13,4 +13,8 @@ router.get("/listar", function (req, res) {
   relatorioController.listar(req, res);
 });
 
+router.get("/buscarAndarAlcancado/:idUsuario", function (req, res) {
+  // função a ser chamada quando acessar /relatorio/buscarAndarAlcancado
+  relatorioController.buscarAndarAlcancado(req, res);
+});
 module.exports = router;

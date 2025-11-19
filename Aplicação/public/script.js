@@ -689,4 +689,5 @@ function finalizarCorrida() {
   // });
 
   // return false;
+  window.location = "dashboards/dashboard-corrida.html";
 }

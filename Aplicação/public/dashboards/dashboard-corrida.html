@@ -5,52 +5,142 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>hades-endgame</title>
     <!-- <link rel="icon" href="../assets/images/icon 1." /> -->
-    <link rel="stylesheet" href="../styles/dashboard-corrida.css">
-     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../styles/dashboard-corrida.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
-  <body>
+  <!-- <body onload="obterDados()"></body> -->
+
+  <body onload="buscarAndarAlcancado()">
     <div class="container-dashboard">
       <div class="left-bar">
-        <img src="../assets/images/hades-logo-branca.png" alt="">
+        <img src="../assets/images/hades-logo-branca.png" alt="" />
         <h1>STATUS DA CORRIDA</h1>
         <a href=""><button>Jogar denovo</button></a>
         <a href=""><button>Exibir Perfil</button></a>
       </div>
       <div class="dashboard">
         <div class="kpis">
-          <div class="kpi"><h3>Andar alcançado:</h3><p>10</p></div>
-          <div class="kpi"><h3>Ataques Basicos utilizados: <p>57</p></h3></div>
-          <div class="kpi"><h3>Ataques Especiais utilizados:</h3>69</div>
-          <div class="kpi"><h3>Inimigos Derrotados</h3><p>9</p></div>
-        
+          <div class="kpi">
+            <div>
+              <h1>Andar alcançado:</h1>
+              <h2 id="h2_andarAlcancado">0</h2>
+            </div>
+          </div>
+          <div class="kpi">
+            <div>
+              <h1>Ataques Basicos utilizados:</h1>
+              <h2>57</h2>
+            </div>
+          </div>
+          <div class="kpi">
+            <div>
+              <h1>Ataques Especiais utilizados:</h1>
+              <h2>69</h2>
+            </div>
+          </div>
+          <div class="kpi">
+            <div>
+              <h1>Ataques críticos causados:</h1>
+              <h2>9</h2>
+            </div>
+          </div>
         </div>
         <div class="graficos">
-          <div><canvas id="linha"></canvas></div>
-          <div><canvas id="barra"></canvas></div>
+          <div class="chart"><canvas id="pie"></canvas></div>
+          <div class="chart">
+            <canvas id="barra"></canvas>
+            <div class="kpis">
+              <div class="kpi">
+                <div>
+                  <h1>Inimigos derrotados:</h1>
+                  <h2>9</h2>
+                </div>
+              </div>
+
+              <div class="kpi">
+                <div>
+                  <h1>Total de buffs coletados:</h1>
+                  <h2>12</h2>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </body>
 </html>
 
-<script> // Capturando o elemento canvas pelo id 
-  var ctx = document.getElementById('linha').getContext('2d');
-  // Criando o gráfico de linha usando o Chart.js
-  var myChart = new Chart(ctx, {
-      type: 'line', // Tipo de gráfico: linha
-      data: { // Dados para o gráfico
-          labels: '1','2', // Rótulos no eixo X
-          datasets: [{ 
-              label: ['Votos'], // Nome do conjunto de dados
-              data: [2,3], // Dados dos votos
-              backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)', // Cor de fundo das linhas
-              ],
-              borderColor: [
-                  'rgba(255, 99, 132, 1)', // Cor da borda das linhas
-              ],
-              borderWidth: 1 // Largura da borda das linhas
-          }]
+<script>
+  function buscarAndarAlcancado() {
+    var idUsuario = sessionStorage.ID_USUARIO;
+    fetch(`/relatorio/buscarAndarAlcancado/${idUsuario}`)
+      .then(function (response) {
+        if (response.ok) {
+          response.json().then(function (resposta) {
+            h2_andarAlcancado.innerHTML = resposta[0].andarAlcancado;
+          });
+        } else {
+          console.error("Erro na resposta da api");
+        }
+      })
+      .catch(function (erro) {
+        console.log("erro encontrado".erro);
+      });
+  }
+  const ctx = document.getElementById("pie");
+
+  new Chart(ctx, {
+    type: "pie",
+    data: {
+      labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+      datasets: [
+        {
+          label: "# of Votes",
+          data: [12, 19, 3, 5, 2, 3],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          display: false,
+        },
       },
+    },
+  });
+  const ctx2 = document.getElementById("barra");
+
+  new Chart(ctx2, {
+    type: "bar",
+
+    data: {
+      labels: ["Dano causado", "Dano recebido"],
+      datasets: [
+        {
+          label: "Dano",
+          data: [12, 19],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      plugins: {
+        title: {
+          display: true,
+          text: "Dano causado e recebido",
+          color: "white",
+          font: {
+            size: 18,
+          },
+        },
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
   });
 </script>
