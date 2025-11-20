@@ -7,64 +7,77 @@
     <!-- <link rel="icon" href="../assets/images/icon 1." /> -->
     <link rel="stylesheet" href="../styles/dashboard-corrida.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
   </head>
   <!-- <body onload="obterDados()"></body> -->
 
-  <body onload="buscarAndarAlcancado()">
-    <div class="container-dashboard">
-      <div class="left-bar">
-        <img src="../assets/images/hades-logo-branca.png" alt="" />
-        <h1>STATUS DA CORRIDA</h1>
-        <a href=""><button>Jogar denovo</button></a>
-        <a href=""><button>Exibir Perfil</button></a>
+  <body
+    onload="buscarAtaquesBasicos(),buscarAndarAlcancado(),buscarAtaquesEspeciais(),buscarAtaquesCriticos(),buscarInimigosDerrotados()"
+  >
+    <div class="left-bar">
+      <img src="../assets/images/hades-logo-branca.png" alt="" />
+      <div>
+        <a href=""
+          >Relatório da ultima corrida <i class="fas fa-file-lines"></i
+        ></a>
+        <a href="">Perfil <i class="fas fa-user"></i></a>
+        <a href="">Ranking <i class="fas fa-trophy"></i></a>
       </div>
-      <div class="dashboard">
-        <div class="kpis">
-          <div class="kpi">
-            <div>
-              <h1>Andar alcançado:</h1>
-              <h2 id="h2_andarAlcancado">0</h2>
-            </div>
-          </div>
-          <div class="kpi">
-            <div>
-              <h1>Ataques Basicos utilizados:</h1>
-              <h2>57</h2>
-            </div>
-          </div>
-          <div class="kpi">
-            <div>
-              <h1>Ataques Especiais utilizados:</h1>
-              <h2>69</h2>
-            </div>
-          </div>
-          <div class="kpi">
-            <div>
-              <h1>Ataques críticos causados:</h1>
-              <h2>9</h2>
-            </div>
+      <button>Jogar novamente <i class="fas fa-rotate-right"></i></button>
+      <button>Sair <i class="fas fa-door-open"></i></button>
+    </div>
+    <div class="container">
+      <div class="container-top">
+        <div>
+          <h1>Relatório de fim de jogo:</h1>
+          <h2 id="h2_andarAlcancado">Andar alcançado:0</h2>
+        </div>
+        <div class="profile">
+          <h1 id="h1_nickname">nickname</h1>
+          <img src="../assets/images/profile-icon.png" alt="" />
+        </div>
+      </div>
+      <div class="kpis">
+        <div class="kpi">
+          <h2>Ataques básicos:</h2>
+          <div>
+            <h1 id="h1_ataquesBasicos">0</h1>
+            <i class="fas fa-hand-fist"></i>
           </div>
         </div>
-        <div class="graficos">
-          <div class="chart"><canvas id="pie"></canvas></div>
-          <div class="chart">
-            <canvas id="barra"></canvas>
-            <div class="kpis">
-              <div class="kpi">
-                <div>
-                  <h1>Inimigos derrotados:</h1>
-                  <h2>9</h2>
-                </div>
-              </div>
-
-              <div class="kpi">
-                <div>
-                  <h1>Total de buffs coletados:</h1>
-                  <h2>12</h2>
-                </div>
-              </div>
-            </div>
+        <div class="kpi">
+          <h2>Ataques especiais:</h2>
+          <div>
+            <h1 id="h1_ataquesEspeciais">0</h1>
+            <i class="fas fa-burst"></i>
           </div>
+        </div>
+        <div class="kpi">
+          <h2>Ataques críticos:</h2>
+          <div>
+            <h1 id="h1_ataquesCriticos">0</h1>
+            <i class="fas fa-bolt"></i>
+          </div>
+        </div>
+        <div class="kpi">
+          <h2>Inimigos derrotados:</h2>
+          <div>
+            <h1 id="h1_inimigosDerrotados">0</h1>
+            <i class="fas fa-skull"></i>
+          </div>
+        </div>
+      </div>
+      <div class="graficos">
+        <div class="graifico-pie">
+          <h1>Bençãos selecionadas:</h1>
+          <canvas id="pie"></canvas>
+        </div>
+        <div>
+          <h1>Dano causado e recebido:</h1>
+          <canvas id="barra"></canvas>
         </div>
       </div>
     </div>
@@ -72,13 +85,26 @@
 </html>
 
 <script>
+  h1_nickname.innerHTML = `${sessionStorage.NICKNAME}`;
+  function buscarAtaquesBasicos() {
+    var idUsuario = sessionStorage.ID_USUARIO;
+    fetch(`/relatorio/buscarAtaquesBasicos/${idUsuario}`).then(function (
+      response
+    ) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          h1_ataquesBasicos.innerHTML = `${resposta[0].totalAtaquesBasicos}`;
+        });
+      }
+    });
+  }
   function buscarAndarAlcancado() {
     var idUsuario = sessionStorage.ID_USUARIO;
     fetch(`/relatorio/buscarAndarAlcancado/${idUsuario}`)
       .then(function (response) {
         if (response.ok) {
           response.json().then(function (resposta) {
-            h2_andarAlcancado.innerHTML = resposta[0].andarAlcancado;
+            h2_andarAlcancado.innerHTML = `Andar alcançado:${resposta[0].andarAlcancado}`;
           });
         } else {
           console.error("Erro na resposta da api");
@@ -87,6 +113,44 @@
       .catch(function (erro) {
         console.log("erro encontrado".erro);
       });
+  }
+  function buscarAtaquesEspeciais() {
+    var idUsuario = sessionStorage.ID_USUARIO;
+    fetch(`/relatorio/buscarAtaquesEspeciais/${idUsuario}`).then(function (
+      response
+    ) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          h1_ataquesEspeciais.innerHTML = `${resposta[0].totalAtaquesEspeciais}`;
+        });
+      }
+    });
+  }
+
+  function buscarInimigosDerrotados() {
+    var idUsuario = sessionStorage.ID_USUARIO;
+    fetch(`/relatorio/buscarInimigosDerrotados/${idUsuario}`).then(function (
+      response
+    ) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          h1_inimigosDerrotados.innerHTML = `${resposta[0].inimigosDerrotados}`;
+        });
+      }
+    });
+  }
+
+  function buscarAtaquesCriticos() {
+    var idUsuario = sessionStorage.ID_USUARIO;
+    fetch(`/relatorio/buscarAtaquesCriticos/${idUsuario}`).then(function (
+      response
+    ) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          h1_ataquesCriticos.innerHTML = `${resposta[0].totalAtaquesCriticos}`;
+        });
+      }
+    });
   }
   const ctx = document.getElementById("pie");
 
@@ -103,9 +167,16 @@
       ],
     },
     options: {
-      scales: {
-        y: {
-          display: false,
+      maintainAspectRatio: false,
+
+      plugins: {
+        legend: {
+          position: "bottom",
+        },
+        scales: {
+          y: {
+            display: false,
+          },
         },
       },
     },
@@ -126,9 +197,14 @@
       ],
     },
     options: {
+      maintainAspectRatio: false,
+
       plugins: {
+        legend: {
+          position: "bottom",
+        },
         title: {
-          display: true,
+          display: false,
           text: "Dano causado e recebido",
           color: "white",
           font: {

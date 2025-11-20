@@ -100,8 +100,100 @@ function buscarAndarAlcancado(req, res) {
       });
   }
 }
+
+function buscarAtaquesBasicos(req, res) {
+  var idUsuario = req.params.idUsuario;
+  if (idUsuario == undefined) {
+    res.status(400).send;
+    ("O id do usuario está undefined");
+  } else {
+    relatorioModel
+      .buscarAtaquesBasicos(idUsuario)
+      .then(function (resultado) {
+        // precisamos informar que o resultado voltará para o front-end como uma resposta em json
+        res.status(200).json(resultado);
+      })
+      .catch(function (erro) {
+        res.status(500).json(erro.sqlMessage);
+      });
+  }
+}
+function buscarAtaquesEspeciais(req, res) {
+  var idUsuario = req.params.idUsuario;
+  if (idUsuario == undefined) {
+    res.status(400).send;
+    ("O id do usuario está undefined");
+  } else {
+    relatorioModel
+      .buscarAtaquesEspeciais(idUsuario)
+      .then(function (resultado) {
+        // precisamos informar que o resultado voltará para o front-end como uma resposta em json
+        res.status(200).json(resultado);
+      })
+      .catch(function (erro) {
+        res.status(500).json(erro.sqlMessage);
+      });
+  }
+}
+function buscarInimigosDerrotados(req, res) {
+  var idUsuario = req.params.idUsuario;
+  if (idUsuario == undefined) {
+    res.status(400).send;
+    ("O id do usuario está undefined");
+  } else {
+    relatorioModel
+      .buscarInimigosDerrotados(idUsuario)
+      .then(function (resultado) {
+        // precisamos informar que o resultado voltará para o front-end como uma resposta em json
+        res.status(200).json(resultado);
+      })
+      .catch(function (erro) {
+        res.status(500).json(erro.sqlMessage);
+      });
+  }
+}
+
+function buscarAtaquesCriticos(req, res) {
+  var idUsuario = req.params.idUsuario;
+  if (idUsuario == undefined) {
+    res.status(400).send("o id do  usuario esta undefined");
+  } else {
+    relatorioModel
+      .buscarAtaquesCriticos(idUsuario)
+      .then(function (resultado) {
+        res.status(200).json(resultado);
+      })
+      .catch(function (erro) {
+        res.status(500).json(erro.sqlMessage);
+      });
+  }
+}
+
+function buscarGraficoDano(req, res) {
+  var idUsuario = req.params.idUsuario;
+  if (idUsuario == undefined) {
+    res.status(400).send;
+    ("O id do usuario está undefined");
+  } else {
+    relatorioModel
+      .buscarGraficoDano(idUsuario)
+      .then(function (resultado) {
+        // precisamos informar que o resultado voltará para o front-end como uma resposta em json
+        res.status(200).json(resultado);
+      })
+      .catch(function (erro) {
+        res.status(500).json(erro.sqlMessage);
+      });
+  }
+}
+
 module.exports = {
   listar,
   cadastrar,
   buscarAndarAlcancado,
+  buscarAtaquesBasicos,
+  buscarAtaquesEspeciais,
+  buscarInimigosDerrotados,
+  buscarAtaquesCriticos,
+  buscarGraficoDano,
 };
