@@ -33,7 +33,7 @@ function cadastrar(
 
 function buscarAndarAlcancado(idUsuario) {
   var instrucao = `
-  select andarAlcancado from corrida where fkUsuario = idUsuario where idUsuario = ${idUsuario} order by idCorrida desc limit 1;`;
+   select andarAlcancado from corrida join usuario on fkUsuario = idUsuario where idUsuario = ${idUsuario} order by idCorrida desc limit 1;`;
   console.log("Executando a instrução SQL: " + instrucao);
   return database.executar(instrucao);
 }
@@ -46,7 +46,7 @@ function buscarAtaquesBasicos(idUsuario) {
 
 function buscarAtaquesEspeciais(idUsuario) {
   var instrucao = `
-  select totalAtaquesEspeciais from corrida join ususario on fkUsuario = idUsuario where idUsuario = ${idUsuario} order by idCorrida desc limit 1;
+  select totalAtaquesEspeciais from corrida join usuario on fkUsuario = idUsuario where idUsuario = ${idUsuario} order by idCorrida desc limit 1;
   `;
   console.log("Executando a instrução SQL: " + instrucao);
   return database.executar(instrucao);

@@ -15,7 +15,7 @@
   <!-- <body onload="obterDados()"></body> -->
 
   <body
-    onload="buscarAtaquesBasicos(),buscarAndarAlcancado(),buscarAtaquesEspeciais(),buscarAtaquesCriticos(),buscarInimigosDerrotados()"
+    onload="buscarAtaquesBasicos(),buscarAndarAlcancado(),buscarAtaquesEspeciais(),buscarAtaquesCriticos(),buscarInimigosDerrotados(),buscarGraficoDano()"
   >
     <div class="left-bar">
       <img src="../assets/images/hades-logo-branca.png" alt="" />
@@ -73,6 +73,7 @@
       <div class="graficos">
         <div class="graifico-pie">
           <h1>Bençãos selecionadas:</h1>
+          
           <canvas id="pie"></canvas>
         </div>
         <div>
@@ -152,6 +153,30 @@
       }
     });
   }
+
+
+  // buscar o grafico de dano
+
+  var dadoDano = []
+   function buscarGraficoDano() {
+    var idUsuario = sessionStorage.ID_USUARIO;
+    fetch(`/relatorio/buscarGraficoDano/${idUsuario}`)
+      .then(function (response) {
+        if (response.ok) {
+          response.json().then(function (resposta) {
+            dadoDano.push(resposta[0].danoCausado);
+            dadoDano.push(resposta[0].danoRecebido);
+             plotarGraficoBarra(dadoDano)
+          });
+        } else {
+          console.error("Erro na resposta da api");
+        }
+      })
+      .catch(function (erro) {
+        console.log("erro encontrado".erro);
+      });
+  }
+  console.log(dadoDano)
   const ctx = document.getElementById("pie");
 
   new Chart(ctx, {
@@ -181,8 +206,8 @@
       },
     },
   });
+  function plotarGraficoBarra(data){
   const ctx2 = document.getElementById("barra");
-
   new Chart(ctx2, {
     type: "bar",
 
@@ -191,7 +216,7 @@
       datasets: [
         {
           label: "Dano",
-          data: [12, 19],
+          data: data,
           borderWidth: 1,
         },
       ],
@@ -219,4 +244,5 @@
       },
     },
   });
+  }
 </script>
