@@ -72,6 +72,13 @@ function buscarGraficoDano(idUsuario) {
   console.log("Executando a instrução SQL: " + instrucao);
   return database.executar(instrucao);
 }
+
+function buscarGraficoPortas(idUsuario) {
+  var instrucao = `select qtdAres as 'BencaoDeAres',qtdZeus as 'BencaoDeZeus',qtdPoseidon as 'BencaoDePoseidon',qtdFontes as 'FonteDeCura', qtdCoracao as 'CoracaoDeCentauro' from corrida join usuario on idUsuario = fkUsuario where idUsuario = ${idUsuario} order by idCorrida desc limit 1;`;
+  console.log("Executando a instrução SQL: " + instrucao);
+  return database.executar(instrucao);
+}
+
 module.exports = {
   cadastrar,
   listar,
@@ -81,4 +88,5 @@ module.exports = {
   buscarInimigosDerrotados,
   buscarAtaquesCriticos,
   buscarGraficoDano,
+  buscarGraficoPortas
 };

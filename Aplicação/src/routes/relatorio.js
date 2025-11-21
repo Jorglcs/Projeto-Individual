@@ -43,4 +43,10 @@ router.get("/buscarGraficoDano/:idUsuario", function (req, res) {
   relatorioController.buscarGraficoDano(req, res);
 });
 
+router.get("/buscarGraficoPortas/:idUsuario", function (req, res) {
+  // função a ser chamada quando acessar /relatorio/buscarGraficoPortas
+  relatorioController.buscarGraficoPortas(req, res);
+});
+
+
 module.exports = router;
