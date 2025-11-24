@@ -17,8 +17,8 @@ function cadastrar(
   qtdAtaqueBasico,
   qtdAtaqueEspecial,
   qtdCritico,
-  qtdAres,
   qtdZeus,
+  qtdAres,
   qtdPoseidon,
   qtdFontes,
   qtdCentauro
@@ -88,5 +88,5 @@ module.exports = {
   buscarInimigosDerrotados,
   buscarAtaquesCriticos,
   buscarGraficoDano,
-  buscarGraficoPortas
+  buscarGraficoPortas,
 };

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hades-profile</title>
+    <!-- <link rel="icon" href="../assets/images/icon 1." /> -->
+    <link rel="stylesheet" href="../styles/dashboard-perfil.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <!-- <body onload="obterDados()"></body> -->
+
+  <body
+    onload="maiorAndar(),mediaAndar(),quantidadeTentativas(),totalInimigosDerrotados(),buffTotal()"
+  >
+    <div class="left-bar">
+      <img src="../assets/images/hades-logo-branca.png" alt="" />
+      <div>
+        <a href="dashboard-corrida.html"
+          >Relatório da ultima corrida <i class="fas fa-file-lines"></i
+        ></a>
+        <a href="dashboard-perfil.html">Perfil <i class="fas fa-user"></i></a>
+        <a href="">Ranking <i class="fas fa-trophy"></i></a>
+      </div>
+      <button onclick="jogarNovamente()">
+        Jogar novamente <i class="fas fa-rotate-right"></i>
+      </button>
+      <button onclick="sair()">Sair <i class="fas fa-door-open"></i></button>
+    </div>
+    <div class="container">
+      <div class="container-top">
+        <div>
+          <h1>Relatório do perfil:</h1>
+        </div>
+        <div class="profile">
+          <h1 id="h1_nickname">nickname</h1>
+          <img src="../assets/images/profile-icon.png" alt="" />
+        </div>
+      </div>
+      <div class="kpis">
+        <div class="kpi">
+          <h2>Maior andar:</h2>
+          <div>
+            <h1 id="h1_maiorAndar">0</h1>
+            <i class="fas fa-arrow-up"></i>
+          </div>
+        </div>
+        <div class="kpi">
+          <h2>Média de andar:</h2>
+          <div>
+            <h1 id="h1_mediaAndar">0</h1>
+            <i class="fas fa-chart-line"></i>
+          </div>
+        </div>
+        <div class="kpi">
+          <h2>Quantidade de tentativas:</h2>
+          <div>
+            <h1 id="h1_quantidadeTentativas">0</h1>
+            <i class="fas fa-repeat"></i>
+          </div>
+        </div>
+        <div class="kpi">
+          <h2>Total inimigos derrotados:</h2>
+          <div>
+            <h1 id="h1_inimigosDerrotados">0</h1>
+            <i class="fas fa-skull"></i>
+          </div>
+        </div>
+      </div>
+      <div class="graficos">
+        <div class="graifico-pie">
+          <h1>Buff mais escolhido:</h1>
+          <div class="buff">
+            <h1 id="h1_Nomebuff">0</h1>
+            <img id="img_buff" src="" alt="" />
+            <h1 id="h1_quantidadeBuff">0</h1>
+            <h2>Vezes</h2>
+          </div>
+        </div>
+        <div class="grafico-linha">
+          <h1>Histórico das ultimas 5 corridas:</h1>
+          <canvas id="linha"></canvas>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  h1_nickname.innerHTML = `${sessionStorage.NICKNAME}`;
+  function maiorAndar() {
+    var idUsuario = sessionStorage.ID_USUARIO;
+    fetch(`/perfil/maiorAndar/${idUsuario}`).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          h1_maiorAndar.innerHTML = `${resposta[0].maiorAndar}`;
+        });
+      }
+    });
+  }
+  function mediaAndar() {
+    var idUsuario = sessionStorage.ID_USUARIO;
+    fetch(`/perfil/mediaAndar/${idUsuario}`)
+      .then(function (response) {
+        if (response.ok) {
+          response.json().then(function (resposta) {
+            h1_mediaAndar.innerHTML = `${Math.floor(resposta[0].mediaAndar)}`;
+          });
+        } else {
+          console.error("Erro na resposta da api");
+        }
+      })
+      .catch(function (erro) {
+        console.log("erro encontrado".erro);
+      });
+  }
+  var numQuantidadeTentativas;
+  function quantidadeTentativas() {
+    var idUsuario = sessionStorage.ID_USUARIO;
+    fetch(`/perfil/quantidadeTentativas/${idUsuario}`)
+      .then(function (response) {
+        if (response.ok) {
+          response.json().then(function (resposta) {
+            h1_quantidadeTentativas.innerHTML = `${resposta[0].quantidadeTentativas}`;
+            numQuantidadeTentativas = resposta[0].quantidadeTentativas;
+            graficoHistoricoAndar();
+          });
+        } else {
+          console.error("Erro na resposta da api");
+        }
+      })
+      .catch(function (erro) {
+        console.log("erro encontrado".erro);
+      });
+  }
+
+  function totalInimigosDerrotados() {
+    var idUsuario = sessionStorage.ID_USUARIO;
+    fetch(`/perfil/totalInimigosDerrotados/${idUsuario}`)
+      .then(function (response) {
+        if (response.ok) {
+          response.json().then(function (resposta) {
+            h1_inimigosDerrotados.innerHTML = `${resposta[0].totalInimigosDerrotados}`;
+          });
+        } else {
+          console.error("Erro na resposta da api");
+        }
+      })
+      .catch(function (erro) {
+        console.log("erro encontrado".erro);
+      });
+  }
+
+  var dadoHistorico = [];
+  var ultimasPartidas = [];
+
+  function graficoHistoricoAndar() {
+    var idUsuario = sessionStorage.ID_USUARIO;
+    fetch(`/perfil/historicoAndar/${idUsuario}`)
+      .then(function (response) {
+        if (response.ok) {
+          response.json().then(function (resposta) {
+            var tamanhoRespota = resposta.length;
+            console.log("tamanho resposta", tamanhoRespota);
+            for (var i = tamanhoRespota - 1; i >= 0; i--) {
+              dadoHistorico.push(resposta[i].andarAlcancado);
+            }
+
+            var inicio = numQuantidadeTentativas - 4;
+
+            if (inicio < 1) {
+              inicio = 1;
+            }
+
+            for (var i = inicio; i <= numQuantidadeTentativas; i++) {
+              ultimasPartidas.push(`${i}° tentativa`);
+            }
+
+            console.log("ultimas partidas", ultimasPartidas);
+            plotarGraficolinha(dadoHistorico, ultimasPartidas);
+          });
+        } else {
+          console.error("Erro na resposta da api");
+        }
+      })
+      .catch(function (erro) {
+        console.log("erro encontrado".erro);
+      });
+  }
+  var totalAres = 0;
+  var totalZeus = 0;
+  var totalPoseidon = 0;
+  var totalFontes = 0;
+  var totalCoracao = 0;
+  function buffTotal() {
+    var idUsuario = sessionStorage.ID_USUARIO;
+    fetch(`/perfil/buffTotal/${idUsuario}`)
+      .then(function (response) {
+        if (response.ok) {
+          response.json().then(function (resposta) {
+            console.log(resposta[0]);
+            totalAres = resposta[0].totalAres;
+            totalZeus = resposta[0].totalZeus;
+            totalPoseidon = resposta[0].totalPoseidon;
+            totalFontes = resposta[0].totalFontes;
+            totalCoracao = resposta[0].totalCoracao;
+
+            if (
+              totalAres > totalZeus &&
+              totalAres > totalPoseidon &&
+              totalAres > totalFontes &&
+              totalAres > totalCoracao
+            ) {
+              h1_Nomebuff.innerHTML = `Benção de Ares`;
+              img_buff.src = "../assets/images/Ares_symbol.png";
+              h1_quantidadeBuff.innerHTML = `${totalAres}`;
+            } else if (
+              totalZeus > totalAres &&
+              totalZeus > totalPoseidon &&
+              totalZeus > totalFontes &&
+              totalZeus > totalCoracao
+            ) {
+              h1_Nomebuff.innerHTML = `Benção de Zeus`;
+              img_buff.src = "../assets/images/Zeus_symbol.png";
+              h1_quantidadeBuff.innerHTML = `${totalZeus}`;
+            } else if (
+              totalPoseidon > totalAres &&
+              totalPoseidon > totalZeus &&
+              totalPoseidon > totalFontes &&
+              totalPoseidon > totalCoracao
+            ) {
+              h1_Nomebuff.innerHTML = `Benção de Poseidon`;
+              img_buff.src = "../assets/images/Poseidon_symbol.png";
+              h1_quantidadeBuff.innerHTML = `${totalPoseidon}`;
+            } else if (
+              totalFontes > totalAres &&
+              totalFontes > totalZeus &&
+              totalFontes > totalPoseidon &&
+              totalFontes > totalCoracao
+            ) {
+              h1_Nomebuff.innerHTML = `Fonte de Cura`;
+              img_buff.src = "../assets/images/fonte_cura.png";
+              h1_quantidadeBuff.innerHTML = `${totalFontes}`;
+            } else {
+              h1_Nomebuff.innerHTML = `Coração de Centauro`;
+              img_buff.src = "../assets/images/centaurhearth.png";
+              h1_quantidadeBuff.innerHTML = `${totalCoracao}`;
+            }
+          });
+        } else {
+          console.error("Erro na resposta da api");
+        }
+      })
+      .catch(function (erro) {
+        console.log("erro encontrado".erro);
+      });
+  }
+
+  function plotarGraficolinha(data, label) {
+    const ctx2 = document.getElementById("linha");
+
+    new Chart(ctx2, {
+      type: "line",
+
+      data: {
+        labels: label,
+        datasets: [
+          {
+            label: "andar",
+            data: data,
+            backgroundColor: "rgba(115, 3, 2, 0.2)",
+            borderColor: "#730302",
+            borderWidth: 4,
+            tension: 0.4,
+          },
+        ],
+      },
+
+      options: {
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+        scales: {
+          y: { beginAtZero: true },
+        },
+      },
+    });
+  }
+
+  function jogarNovamente() {
+    window.location = "../game.html";
+  }
+  function sair() {
+    window.location = "../menu.html";
+  }
+</script>

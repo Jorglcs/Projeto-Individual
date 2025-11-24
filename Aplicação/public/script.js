@@ -124,8 +124,10 @@ function sair() {
   atualizar();
   div_telaBatalha.style.display = "flex";
   inimigo.vidaAtual = inimigo.vidaMaxima;
-  p_vidaInimigo.innerHTML = `${inimigo.vidaAtual}/${inimigo.vidaMaxima}`;
-  p_danoInimigo.innerHTML = inimigo.danoAtaque;
+  p_vidaInimigo.innerHTML = `${inimigo.vidaAtual.toFixed(
+    2
+  )}/${inimigo.vidaMaxima.toFixed(2)}`;
+  p_danoInimigo.innerHTML = inimigo.danoAtaque.toFixed(2);
   div_portas.style.display = "none";
   div_tudoBoon.style.display = "none";
   p_vidaPlayer.innerHTML = `${player.vidaAtual}/${player.vidaMaxima}`;
@@ -143,7 +145,9 @@ function ataqueInimigo() {
     } else {
       p_logInimigo.innerHTML = `O inimigo errou o ataque.`;
     }
-    p_vidaPlayer.innerHTML = `${player.vidaAtual}/${player.vidaMaxima}`;
+    p_vidaPlayer.innerHTML = `${player.vidaAtual.toFixed(
+      2
+    )}/${player.vidaMaxima.toFixed(2)}`;
   } else {
     p_logInimigo.innerHTML = `<b style="color:yelow">O inimigo esta paralisado por ${inimigo.paralisia} turno(s).</b>`;
     inimigo.paralisia -= 1;
@@ -568,17 +572,28 @@ function perk_aresBoons() {
     aresBoons.splice(numBoonAleatorio, 1);
   }
 }
-
 function atualizar() {
-  p_vidaPlayer.innerHTML = `${player.vidaAtual}/${player.vidaMaxima}`;
-  p_danoAtaque.innerHTML = `Dano: ${player.danoAtaqueBasico}`;
-  p_chanceCritico.innerHTML = `Chance Crítica: ${player.chanceCritico}%`;
-  p_andarAtual.innerHTML = andarAtual;
-  p_chanceAcerto.innerHTML = `Chance de acerto: ${player.chanceAtaqueBasico}`;
-  p_vidaInimigo.innerHTML = `${inimigo.vidaAtual}/${inimigo.vidaMaxima}`;
-  p_danoInimigo.innerHTML = `Dano: ${inimigo.danoAtaque}`;
-  p_cargasEspecial.innerHTML = `Cargas de especial: ${player.cargaEspecial}/${player.cargaEspecialMaxima}`;
-  p_danoAtaqueEspecial.innerHTML = `Dano: ${player.danoAtaqueEspecial}`;
+  p_vidaPlayer.innerHTML = `${Math.floor(player.vidaAtual)}/${Math.floor(
+    player.vidaMaxima
+  )}`;
+  p_danoAtaque.innerHTML = `Dano: ${Math.floor(player.danoAtaqueBasico)}`;
+  p_chanceCritico.innerHTML = `Chance Crítica: ${Math.floor(
+    player.chanceCritico
+  )}%`;
+  p_andarAtual.innerHTML = Math.floor(andarAtual);
+  p_chanceAcerto.innerHTML = `Chance de acerto: ${Math.floor(
+    player.chanceAtaqueBasico
+  )}`;
+  p_vidaInimigo.innerHTML = `${Math.floor(inimigo.vidaAtual)}/${Math.floor(
+    inimigo.vidaMaxima
+  )}`;
+  p_danoInimigo.innerHTML = `Dano: ${Math.floor(inimigo.danoAtaque)}`;
+  p_cargasEspecial.innerHTML = `Cargas de especial: ${Math.floor(
+    player.cargaEspecial
+  )}/${Math.floor(player.cargaEspecialMaxima)}`;
+  p_danoAtaqueEspecial.innerHTML = `Dano: ${Math.floor(
+    player.danoAtaqueEspecial
+  )}`;
   p_efeitoAtaqueBasico.innerHTML = `Efeito: ${player.efeitoAtaquePrincipal}`;
 }
 
@@ -629,22 +644,6 @@ function finalizarCorrida() {
   var qtdFontesVar = finalizacao.qtdFontes;
   var qtdCentauroVar = finalizacao.qtdCentauro;
   var fkUsuarioVar = sessionStorage.ID_USUARIO;
-  // validação
-  // if (
-  //   emailVar == "" ||
-  //   nomeVar == "" ||
-  //   nicknameVar == "" ||
-  //   senhaVar == ""
-  // ) {
-  //   p_mensagemErro.style.display = "block";
-  //   p_mensagemErro.innerHTML =
-  //     "(Mensagem de erro para todos os campos em branco)";
-
-  //   return false;
-  // } else {
-  //   setInterval(sumirMensagem, 5000);
-  // }
-  // Enviando o valor da nova input
 
   fetch("/relatorio/cadastrar", {
     method: "POST",
@@ -670,24 +669,5 @@ function finalizarCorrida() {
       qtdCentauroServer: qtdCentauroVar,
     }),
   });
-  // .then(function (resposta) {
-  //   console.log("resposta: ", resposta);
-
-  //   if (resposta.ok) {
-  //     p_mensagemErro.innerHTML =
-  //       "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
-  //     setTimeout(() => {
-  //       window.location = "login.html";
-  //     }, "2000");
-  //   } else {
-  //     throw "Houve um erro ao tentar realizar o cadastro!";
-  //   }
-  // })
-  // .catch(function (resposta) {
-  //   console.log(`#ERRO: ${resposta}`);
-  // });
-
-  // return false;
   window.location = "dashboards/dashboard-corrida.html";
 }
