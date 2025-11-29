@@ -36,7 +36,7 @@
         <div>
           <h1>Relatório do perfil:</h1>
         </div>
-        <div class="profile">
+        <div class="profile" onclick="abrirModal()">
           <h1 id="h1_nickname">nickname</h1>
           <img src="../assets/images/profile-icon.png" alt="" />
         </div>
@@ -87,10 +87,15 @@
         </div>
       </div>
     </div>
+    <dialog id="modal" class="modal">
+      <h1>Nickname:</h1> <input type="text" value="" id="input_nicknameModal">
+      <button onclick="fecharModal()">Fechar Modal</button>
+    </dialog>
   </body>
 </html>
 
 <script>
+  input_nicknameModal.value = `${sessionStorage.NICKNAME}`
   h1_nickname.innerHTML = `${sessionStorage.NICKNAME}`;
   function maiorAndar() {
     var idUsuario = sessionStorage.ID_USUARIO;
@@ -299,5 +304,14 @@
   }
   function sair() {
     window.location = "../menu.html";
+  }
+
+  function abrirModal(){
+    modal.showModal()
+
+
+  }
+  function fecharModal(){
+    modal.close()
   }
 </script>

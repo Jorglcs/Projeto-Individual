@@ -42,7 +42,7 @@
           <img src="../assets/images/profile-icon.png" alt="" />
         </div>
       </div>
-      <div class="kpis">
+      <!-- <div class="kpis">
         <div class="kpi">
           <h2>Ataques básicos:</h2>
           <div>
@@ -71,7 +71,7 @@
             <i class="fas fa-skull"></i>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="graficos">
         <div class="graifico-pie">
           <h1>Buffs selecionadas:</h1>
@@ -89,96 +89,7 @@
 
 <script>
   h1_nickname.innerHTML = `${sessionStorage.NICKNAME}`;
-  function buscarAtaquesBasicos() {
-    var idUsuario = sessionStorage.ID_USUARIO;
-    fetch(`/relatorio/buscarAtaquesBasicos/${idUsuario}`).then(function (
-      response
-    ) {
-      if (response.ok) {
-        response.json().then(function (resposta) {
-          h1_ataquesBasicos.innerHTML = `${resposta[0].totalAtaquesBasicos}`;
-        });
-      }
-    });
-  }
-  function buscarAndarAlcancado() {
-    var idUsuario = sessionStorage.ID_USUARIO;
-    fetch(`/relatorio/buscarAndarAlcancado/${idUsuario}`)
-      .then(function (response) {
-        if (response.ok) {
-          response.json().then(function (resposta) {
-            h2_andarAlcancado.innerHTML = `Andar alcançado:${resposta[0].andarAlcancado}`;
-          });
-        } else {
-          console.error("Erro na resposta da api");
-        }
-      })
-      .catch(function (erro) {
-        console.log("erro encontrado".erro);
-      });
-  }
-  function buscarAtaquesEspeciais() {
-    var idUsuario = sessionStorage.ID_USUARIO;
-    fetch(`/relatorio/buscarAtaquesEspeciais/${idUsuario}`).then(function (
-      response
-    ) {
-      if (response.ok) {
-        response.json().then(function (resposta) {
-          h1_ataquesEspeciais.innerHTML = `${resposta[0].totalAtaquesEspeciais}`;
-        });
-      }
-    });
-  }
-
-  function buscarInimigosDerrotados() {
-    var idUsuario = sessionStorage.ID_USUARIO;
-    fetch(`/relatorio/buscarInimigosDerrotados/${idUsuario}`).then(function (
-      response
-    ) {
-      if (response.ok) {
-        response.json().then(function (resposta) {
-          h1_inimigosDerrotados.innerHTML = `${resposta[0].inimigosDerrotados}`;
-        });
-      }
-    });
-  }
-
-  function buscarAtaquesCriticos() {
-    var idUsuario = sessionStorage.ID_USUARIO;
-    fetch(`/relatorio/buscarAtaquesCriticos/${idUsuario}`).then(function (
-      response
-    ) {
-      if (response.ok) {
-        response.json().then(function (resposta) {
-          h1_ataquesCriticos.innerHTML = `${resposta[0].totalAtaquesCriticos}`;
-        });
-      }
-    });
-  }
-
-  // buscar o grafico de dano
-  // plotarGraficoBarra()
-  var dadoDano = [];
-
-  function buscarGraficoDano() {
-    var idUsuario = sessionStorage.ID_USUARIO;
-    fetch(`/relatorio/buscarGraficoDano/${idUsuario}`)
-      .then(function (response) {
-        if (response.ok) {
-          response.json().then(function (resposta) {
-            dadoDano.push(resposta[0].danoCausado);
-            dadoDano.push(resposta[0].danoRecebido);
-            plotarGraficoBarra(dadoDano);
-          });
-        } else {
-          console.error("Erro na resposta da api");
-        }
-      })
-      .catch(function (erro) {
-        console.log("erro encontrado".erro);
-      });
-  }
-
+ 
   // buscar graficos portas
   var dadoPortas = [];
   function buscarGraficoPortas() {
@@ -248,7 +159,7 @@
       },
 
       options: {
-          
+        maintainAspectRatio: false,
         plugins: {
           legend: {
             position: "bottom",

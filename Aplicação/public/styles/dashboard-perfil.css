@@ -8,7 +8,7 @@
 }
 body {
   display: flex;
-  overflow: hidden;
+  overflow: hidden; 
   background-image: linear-gradient(45deg, black, #3e3e3e);
 }
 .left-bar {
@@ -87,6 +87,17 @@ body {
   display: flex;
   align-items: flex-end;
 }
+
+.container .container-top .profile:hover{
+  gap: 15px;
+  display: flex;
+  align-items: flex-end;
+  cursor: pointer;
+  background-color: #090909;
+  border-radius: 25px;
+}
+
+
 .container .container-top .profile img {
   background-color: #ffffff;
   width: 80px;
@@ -137,6 +148,7 @@ canvas {
   padding: 10px;
 }
 .buff {
+  text-align: center;
   color: black;
   display: flex;
   flex-direction: column;
@@ -146,11 +158,24 @@ canvas {
   width: 100%;
 }
 .buff img {
-  height: 300px;
+  height: 100px;
 }
 .grafico-linha {
   width: 55%;
 }
 .graifico-pie {
-  width: 20%;
+  height: 100%;
+  width: 30%;
+}
+
+.graifico-pie h1{
+  width: 100%;
+}
+
+.modal{
+  /* display: flex; */
+  position: absolute;
+
+  align-self: center;
+  justify-self: center;
 }
