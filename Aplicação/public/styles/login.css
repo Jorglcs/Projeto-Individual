@@ -1,61 +1,64 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
-*{
-    padding: 0;
-    margin: 0;
-    font-family: 'Spectral';
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Spectral";
+}
+body {
+  display: flex;
+  height: 100vh;
 
+  /* width: 100vw; */
+  background-image: url(../assets/images/login-background.png);
+  background-size: cover;
+  align-items: center;
+  justify-content: center;
 }
-body{
-    display: flex;
-    height: 100vh;
-
-    /* width: 100vw; */
-    background-image: url(../assets/images/login-background.png);
-    background-size: cover;
-    align-items: center;
-    justify-content: center;
+.container-cadastro {
+  color: white;
+  gap: 20px;
+  background-color: #343331;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 100px;
+  border: solid 2px #afaa97;
+  border-radius: 15px;
 }
-.container-cadastro{
-    color: white;
-    gap: 20px;
-    background-color: #343331;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 100px;
-    border: solid 2px #AFAA97;
-    border-radius: 15px;
-}
-.container-cadastro input{
-    background-color: #4E4E4C;
-    width: 350px;
-    height: 30px;
-    border-radius: 5px;
-    border:solid 2px black;
+.container-cadastro input {
+  background-color: #4e4e4c;
+  width: 350px;
+  height: 30px;
+  border-radius: 5px;
+  border: solid 2px black;
+  color: white;
 }
 
-.container-cadastro button{
-    background-image: url(../assets/images/button.png);
-    background-size: contain;
-    background-position: center;
-    height: 55px;
-    width: 185px;
-    border: none;
-    background-color: transparent;
-    color: white;
-    background-repeat: no-repeat;
-    /* transition: ease ; */
+.container-cadastro button {
+  background-image: url(../assets/images/button.png);
+  background-size: contain;
+  background-position: center;
+  height: 55px;
+  width: 185px;
+  border: none;
+  background-color: transparent;
+  color: white;
+  background-repeat: no-repeat;
+  /* transition: ease ; */
 }
-.container-cadastro button:hover{
-    background-image: url(../assets/images/button-hover.png);
-    background-size: contain;
-    background-position: center;
-    height: 55px;
-    width: 185px;
-    border: none;
-    background-color: transparent;
-    color: white;
-    background-repeat: no-repeat;
-    cursor: pointer;
+.container-cadastro button:hover {
+  background-image: url(../assets/images/button-hover.png);
+  background-size: contain;
+  background-position: center;
+  height: 55px;
+  width: 185px;
+  border: none;
+  background-color: transparent;
+  color: white;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
 
+a {
+  color: white;
 }
