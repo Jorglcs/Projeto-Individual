@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>hades-endgame</title>
     <!-- <link rel="icon" href="../assets/images/icon 1." /> -->
-    <link rel="stylesheet" href="../styles/dashboard-corrida.css" />
+    <link rel="stylesheet" href="../styles/dashboard-ranking.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link
       rel="stylesheet"
@@ -14,13 +14,11 @@
   </head>
   <!-- <body onload="obterDados()"></body> -->
 
-  <body
-    onload="buscarAtaquesBasicos(),buscarAndarAlcancado(),buscarAtaquesEspeciais(),buscarAtaquesCriticos(),buscarInimigosDerrotados(),buscarGraficoDano(),buscarGraficoPortas()"
-  >
+  <body onload="buscarGraficoTentativas(),buscarGraficoAndar()">
     <div class="left-bar">
       <img src="../assets/images/hades-logo-branca.png" alt="" />
       <div>
-        <a href=""
+        <a href="dashboard-corrida.html"
           >Relatório da ultima corrida <i class="fas fa-file-lines"></i
         ></a>
         <a href="dashboard-perfil.html">Perfil <i class="fas fa-user"></i></a>
@@ -34,8 +32,7 @@
     <div class="container">
       <div class="container-top">
         <div>
-          <h1>Relatório da ultima corrida:</h1>
-          <h2 id="h2_andarAlcancado">Andar alcançado:0</h2>
+          <h1>Página de Ranking:</h1>
         </div>
         <div class="profile">
           <h1 id="h1_nickname">nickname</h1>
@@ -74,13 +71,13 @@
       </div> -->
       <div class="graficos">
         <div class="graifico-pie">
-          <h1>Buffs selecionadas:</h1>
+          <h1>Top jogadores com mais tentativas:</h1>
 
-          <canvas id="pie"></canvas>
+          <canvas id="tentativas"></canvas>
         </div>
         <div>
-          <h1>Dano causado e recebido:</h1>
-          <canvas id="barra"></canvas>
+          <h1>Top andar alcançado:</h1>
+          <canvas id="maiorAndar"></canvas>
         </div>
       </div>
     </div>
@@ -89,23 +86,21 @@
 
 <script>
   h1_nickname.innerHTML = `${sessionStorage.NICKNAME}`;
- 
-  // buscar graficos portas
-  var dadoPortas = [];
-  function buscarGraficoPortas() {
-    var idUsuario = sessionStorage.ID_USUARIO;
-    fetch(`/relatorio/buscarGraficoPortas/${idUsuario}`)
+
+  // buscar graficos quantidade de tentativas
+  var dadoRanking = [];
+  var nomeRanking = [];
+  function buscarGraficoTentativas() {
+    fetch(`/ranking/rankingTentativas`)
       .then(function (response) {
         if (response.ok) {
           response.json().then(function (resposta) {
             console.log(resposta);
-            dadoPortas.push(resposta[0].BencaoDeAres);
-            dadoPortas.push(resposta[0].BencaoDeZeus);
-            dadoPortas.push(resposta[0].BencaoDePoseidon);
-            dadoPortas.push(resposta[0].FonteDeCura);
-            dadoPortas.push(resposta[0].CoracaoDeCentauro);
-            plotarGraficoPizza(dadoPortas);
-            console.log(dadoPortas);
+            for (var i = 0; i < resposta.length; i++) {
+              nomeRanking.push(resposta[i].nome);
+              dadoRanking.push(resposta[i].quantidadeTentativa);
+            }
+            plotarGraficoTentativas(dadoRanking, nomeRanking);
           });
         } else {
           console.error("Erro na resposta da api");
@@ -116,69 +111,33 @@
       });
   }
 
-  function plotarGraficoPizza(data) {
-    const ctx = document.getElementById("pie");
+  function plotarGraficoTentativas(data, nomes) {
+    const ctx = document.getElementById("tentativas");
 
     new Chart(ctx, {
-      type: "pie",
+      type: "bar",
       data: {
-        labels: [
-          "Benção de Ares",
-          "Benção de Zeus",
-          "Benção de Poseidon",
-          "Fonte de cura",
-          "Coração de Centauro",
-        ],
+        labels: nomes,
         datasets: [
           {
-            label: "Quantidade escolhida",
+            label: "Quantidade de tentativas",
             data: data,
-
-            // Fundo infernal transparente
-            backgroundColor: [
-              "rgba(255, 30, 30, 0.45)", // Ares
-              "rgba(255, 214, 0, 0.45)", // Zeus
-              "rgba(0, 120, 255, 0.45)", // Poseidon
-              "rgba(0, 200, 80, 0.45)", // Cura
-              "rgba(0, 0, 0, 0.55)", // Centauro
-            ],
-
-            // Bordas mais escuras e fortes
-            borderColor: [
-              "rgb(150, 0, 0)", // Ares
-              "rgb(140, 120, 0)", // Zeus
-              "rgb(0, 60, 120)", // Poseidon
-              "rgb(0, 90, 30)", // Cura
-              "rgb(20, 20, 20)", // Centauro
-            ],
-
-            borderWidth: 3,
-            hoverOffset: 15,
+            backgroundColor: "rgba(255, 80, 80, 0.6)",
+            borderColor: "rgba(255, 50, 50, 1)",
+            borderWidth: 2,
+            borderRadius: 8,
           },
         ],
       },
 
       options: {
+        indexAxis: "y",
         maintainAspectRatio: false,
         plugins: {
           legend: {
             position: "bottom",
             labels: {
               color: "black",
-
-              // Deixa a borda da legenda mais escura também
-              generateLabels(chart) {
-                const original =
-                  Chart.overrides.pie.plugins.legend.labels.generateLabels;
-                const labels = original(chart);
-
-                labels.forEach((label) => {
-                  label.strokeStyle = label.fillStyle.replace("0.45", "1");
-                  label.lineWidth = 3;
-                });
-
-                return labels;
-              },
             },
           },
         },
@@ -186,65 +145,62 @@
     });
   }
 
-  function plotarGraficoBarra(data) {
-    const ctx2 = document.getElementById("barra");
+  var nomesRankingAndar = [];
+  var dadosRakingAndar = [];
+  function buscarGraficoAndar() {
+    fetch(`/ranking/rankingAndar`)
+      .then(function (response) {
+        if (response.ok) {
+          response.json().then(function (resposta) {
+            console.log(resposta);
+            for (var i = 0; i < resposta.length; i++) {
+              nomesRankingAndar.push(resposta[i].nome);
+              dadosRakingAndar.push(resposta[i].andarAlcancado);
+            }
+            plotarGraficoAndar(dadosRakingAndar, nomesRankingAndar);
+          });
+        } else {
+          console.error("Erro na resposta da api");
+        }
+      })
+      .catch(function (erro) {
+        console.log("erro encontrado".erro);
+      });
+  }
+  function plotarGraficoAndar(data, nomes) {
+    const ctx = document.getElementById("maiorAndar");
 
-    new Chart(ctx2, {
+    new Chart(ctx, {
       type: "bar",
-
       data: {
-        labels: ["Dano causado", "Dano recebido"],
+        labels: nomes,
         datasets: [
           {
-            label: "Dano",
+            label: "Andar alcançado",
             data: data,
-            backgroundColor: [
-              "rgba(76, 175, 80, 0.4)",
-              "rgba(244, 67, 54, 0.4)",
-            ],
-            borderColor: ["rgba(76, 175, 80, 1)", "rgba(244, 67, 54, 1)"],
+            backgroundColor: "rgba(255, 80, 80, 0.6)",
+            borderColor: "rgba(255, 50, 50, 1)",
             borderWidth: 2,
-            borderRadius: 10,
+            borderRadius: 8,
           },
         ],
       },
 
       options: {
+        indexAxis: "y",
         maintainAspectRatio: false,
-
         plugins: {
           legend: {
-            display: true,
             position: "bottom",
             labels: {
-              generateLabels(chart) {
-                return [
-                  {
-                    text: "Dano causado",
-                    fillStyle: "rgba(76, 175, 80, 0.4)",
-                    strokeStyle: "rgba(76, 175, 80, 1)",
-                    lineWidth: 2,
-                  },
-                  {
-                    text: "Dano recebido",
-                    fillStyle: "rgba(244, 67, 54, 0.4)",
-                    strokeStyle: "rgba(244, 67, 54, 1)",
-                    lineWidth: 2,
-                  },
-                ];
-              },
-              color: "white",
-              font: { size: 14 },
+              color: "black",
             },
           },
-        },
-
-        scales: {
-          y: { beginAtZero: true },
         },
       },
     });
   }
+
   function jogarNovamente() {
     window.location = "../game.html";
   }

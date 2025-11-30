@@ -1,12 +1,21 @@
 var database = require("../database/config");
 
 function rankingAndar() {
-  var instrucao = `select sum(qtdAres) as totalAres, sum(qtdZeus) as totalZeus, sum(qtdPoseidon) as totalPoseidon, sum(qtdFontes) as totalFontes, sum(qtdCoracao) as totalCoracao from corrida join usuario on idUsuario = fkUsuario where idUsuario = ${idUsuario};`;
+  var instrucao = `select usuario.nickname as nome,
+	andarAlcancado
+    from corrida join usuario on fkUsuario = idUsuario
+    order by andarAlcancado desc limit 5;`;
   console.log("Executando a instrução SQL: " + instrucao);
   return database.executar(instrucao);
 }
 
+function rankingTentativas() {
+  var instrucao = `select usuario.nickname as nome, count(andarAlcancado) as quantidadeTentativa from corrida join usuario on fkUsuario = idUsuario group by nickname;`;
+  console.log("Executando a instrução SQL: " + instrucao);
+  return database.executar(instrucao);
+}
 
 module.exports = {
-  rankingAndar
+  rankingAndar,
+  rankingTentativas,
 };

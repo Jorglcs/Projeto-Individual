@@ -47,8 +47,12 @@ function atualizarAndar() {
   finalizacao.andarAlcancado++;
   p_andarAtual.innerHTML = andarAtual;
 }
-
+var MensagemLog = "";
+var contadorLog = 1;
 function ataqueBasico() {
+  MensagemLog = "";
+  MensagemLog += `Turno ${contadorLog}.<br>`;
+  contadorLog++;
   finalizacao.qtdAtaqueBasico++;
   var rouboVida = (player.danoAtaqueBasico * player.danoCritico * 10) / 100;
   var numAleatorioCritico = Math.floor(Math.random() * 100 + 1); //gera numero de 0 a 100
@@ -56,23 +60,23 @@ function ataqueBasico() {
     finalizacao.danoTotal += player.danoAtaqueBasico * player.danoCritico;
     finalizacao.qtdCritico++;
     inimigo.vidaAtual -= player.danoAtaqueBasico * player.danoCritico;
-    p_logPlayer.innerHTML = `Zagreus causou um ataque crítico causando ${(
+    MensagemLog += `Zagreus causou um ataque crítico causando ${(
       player.danoAtaqueBasico * player.danoCritico
-    ).toFixed(2)} de dano.`;
+    ).toFixed(2)} de dano.<br>`;
 
     if (player.efeitoAtaquePrincipal == "ares") {
       player.vidaAtual += rouboVida;
-      p_logPlayer.innerHTML += `<br>E curou ${rouboVida.toFixed(2)} de vida.`;
+      MensagemLog += `<br>E curou ${rouboVida.toFixed(2)} de vida.<br>`;
     } else if (player.efeitoAtaquePrincipal == "zeus") {
       inimigo.paralisia = 1;
-      p_logPlayer.innerHTML += `<br>E causou paralisia ao inimigo.`;
+      MensagemLog += `<br>E causou paralisia ao inimigo.<br>`;
     }
   } else {
     finalizacao.danoTotal += player.danoAtaqueBasico;
     inimigo.vidaAtual -= player.danoAtaqueBasico;
-    p_logPlayer.innerHTML = `Zagreus causou ${player.danoAtaqueBasico.toFixed(
+    MensagemLog += `Zagreus causou ${player.danoAtaqueBasico.toFixed(
       2
-    )} de dano.`;
+    )} de dano.<br>`;
   }
 
   p_vidaInimigo.innerHTML = `${inimigo.vidaAtual.toFixed(2)}/${
@@ -90,13 +94,17 @@ function ataqueBasico() {
 
 function ataqueEspecial() {
   if (player.cargaEspecial >= player.cargaEspecialMinima) {
+    MensagemLog = "";
+
     var chanceAtaqueEspecial = Math.floor(Math.random() * 100 + 1);
     player.cargaEspecial -= player.cargaEspecialMinima;
     if (chanceAtaqueEspecial <= player.chanceAtaqueEspecial) {
       finalizacao.danoTotal += player.danoAtaqueEspecial;
       finalizacao.qtdAtaqueEspecial++;
       console.log("ACERTOU ATAQUE ESPECIAL");
-      p_logPlayer.innerHTML = `Zagreus acertou o <b>ataque especial.</b>`;
+      MensagemLog += `Zagreus causou ${player.danoAtaqueEspecial.toFixed(
+        2
+      )}.<br>`;
       inimigo.vidaAtual -= player.danoAtaqueEspecial;
 
       p_vidaInimigo.innerHTML = `${inimigo.vidaAtual}/${inimigo.vidaMaxima}`;
@@ -104,7 +112,8 @@ function ataqueEspecial() {
         inimigo.paralisia = 2;
       }
     } else {
-      p_logPlayer.innerHTML = `Zagreus errou o <b>ataque especial.</b>`;
+      MensagemLog = "";
+      MensagemLog += `Zagreus <b>errou</b> o ataque especial.<br>`;
     }
     if (inimigo.vidaAtual <= 0) {
       finalizacao.inimigos++;
@@ -118,8 +127,7 @@ function ataqueEspecial() {
   atualizar();
 }
 function sair() {
-  p_logPlayer.innerHTML = "";
-  p_logInimigo.innerHTML = "";
+  // p_logInimigo.innerHTML = "";
   atualizarDificuldade();
   atualizar();
   div_telaBatalha.style.display = "flex";
@@ -131,6 +139,8 @@ function sair() {
   div_portas.style.display = "none";
   div_tudoBoon.style.display = "none";
   p_vidaPlayer.innerHTML = `${player.vidaAtual}/${player.vidaMaxima}`;
+  contadorLog = 1;
+  div_logs.innerHTML = "";
 }
 
 function ataqueInimigo() {
@@ -139,22 +149,23 @@ function ataqueInimigo() {
     if (chanceAtaqueInimigo <= inimigo.chanceAtaque) {
       finalizacao.danoRecebido += inimigo.danoAtaque;
       player.vidaAtual -= inimigo.danoAtaque;
-      p_logInimigo.innerHTML = `O inimigo causou ${inimigo.danoAtaque.toFixed(
+      MensagemLog += `<p style="border-bottom: solid white;">O inimigo causou ${inimigo.danoAtaque.toFixed(
         1
-      )}.`;
+      )}.<br><br></p>`;
     } else {
-      p_logInimigo.innerHTML = `O inimigo errou o ataque.`;
+      MensagemLog += `<p style="border-bottom: solid white;">O inimigo errou o ataque.<br><br></p>`;
     }
     p_vidaPlayer.innerHTML = `${player.vidaAtual.toFixed(
       2
     )}/${player.vidaMaxima.toFixed(2)}`;
   } else {
-    p_logInimigo.innerHTML = `<b style="color:yelow">O inimigo esta paralisado por ${inimigo.paralisia} turno(s).</b>`;
+    MensagemLog += `<b style="color:yelow;border-bottom: solid white;">O inimigo esta paralisado por ${inimigo.paralisia} turno(s).</b><br><br>`;
     inimigo.paralisia -= 1;
   }
   if (player.vidaAtual <= 0) {
     exibirRelatorio();
   }
+  exibirLog();
 }
 var numPortas = 0;
 function selecionarPorta() {
@@ -670,4 +681,8 @@ function finalizarCorrida() {
     }),
   });
   window.location = "dashboards/dashboard-corrida.html";
+}
+
+function exibirLog() {
+  div_logs.innerHTML += MensagemLog;
 }

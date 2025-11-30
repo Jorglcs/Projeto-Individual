@@ -24,7 +24,9 @@
           >Relatório da ultima corrida <i class="fas fa-file-lines"></i
         ></a>
         <a href="dashboard-perfil.html">Perfil <i class="fas fa-user"></i></a>
-        <a href="">Ranking <i class="fas fa-trophy"></i></a>
+        <a href="dashboard-ranking.html"
+          >Ranking <i class="fas fa-trophy"></i
+        ></a>
       </div>
       <button onclick="jogarNovamente()">
         Jogar novamente <i class="fas fa-rotate-right"></i>
@@ -88,14 +90,15 @@
       </div>
     </div>
     <dialog id="modal" class="modal">
-      <h1>Nickname:</h1> <input type="text" value="" id="input_nicknameModal">
+      <h1>Nickname:</h1>
+      <input type="text" value="" id="input_nicknameModal" />
       <button onclick="fecharModal()">Fechar Modal</button>
     </dialog>
   </body>
 </html>
 
 <script>
-  input_nicknameModal.value = `${sessionStorage.NICKNAME}`
+  input_nicknameModal.value = `${sessionStorage.NICKNAME}`;
   h1_nickname.innerHTML = `${sessionStorage.NICKNAME}`;
   function maiorAndar() {
     var idUsuario = sessionStorage.ID_USUARIO;
@@ -306,12 +309,10 @@
     window.location = "../menu.html";
   }
 
-  function abrirModal(){
-    modal.showModal()
-
-
+  function abrirModal() {
+    modal.showModal();
   }
-  function fecharModal(){
-    modal.close()
+  function fecharModal() {
+    modal.close();
   }
 </script>

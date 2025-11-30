@@ -24,7 +24,9 @@
           >Relatório da ultima corrida <i class="fas fa-file-lines"></i
         ></a>
         <a href="dashboard-perfil.html">Perfil <i class="fas fa-user"></i></a>
-        <a href="">Ranking <i class="fas fa-trophy"></i></a>
+        <a href="dashboard-ranking.html"
+          >Ranking <i class="fas fa-trophy"></i
+        ></a>
       </div>
       <button onclick="jogarNovamente()">
         Jogar novamente <i class="fas fa-rotate-right"></i>
@@ -223,22 +225,20 @@
             label: "Quantidade escolhida",
             data: data,
 
-            // Fundo infernal transparente
             backgroundColor: [
-              "rgba(255, 30, 30, 0.45)", // Ares
-              "rgba(255, 214, 0, 0.45)", // Zeus
-              "rgba(0, 120, 255, 0.45)", // Poseidon
-              "rgba(0, 200, 80, 0.45)", // Cura
-              "rgba(0, 0, 0, 0.55)", // Centauro
+              "rgba(255, 30, 30, 0.45)",
+              "rgba(255, 214, 0, 0.45)",
+              "rgba(0, 120, 255, 0.45)",
+              "rgba(0, 200, 80, 0.45)",
+              "rgba(0, 0, 0, 0.55)",
             ],
 
-            // Bordas mais escuras e fortes
             borderColor: [
-              "rgb(150, 0, 0)", // Ares
-              "rgb(140, 120, 0)", // Zeus
-              "rgb(0, 60, 120)", // Poseidon
-              "rgb(0, 90, 30)", // Cura
-              "rgb(20, 20, 20)", // Centauro
+              "rgb(150, 0, 0)",
+              "rgb(140, 120, 0)",
+              "rgb(0, 60, 120)",
+              "rgb(0, 90, 30)",
+              "rgb(20, 20, 20)",
             ],
 
             borderWidth: 3,
@@ -248,14 +248,12 @@
       },
 
       options: {
-          
         plugins: {
           legend: {
             position: "bottom",
             labels: {
               color: "black",
 
-              // Deixa a borda da legenda mais escura também
               generateLabels(chart) {
                 const original =
                   Chart.overrides.pie.plugins.legend.labels.generateLabels;
