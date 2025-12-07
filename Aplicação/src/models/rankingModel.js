@@ -10,7 +10,14 @@ function rankingAndar() {
 }
 
 function rankingTentativas() {
-  var instrucao = `select usuario.nickname as nome, count(andarAlcancado) as quantidadeTentativa from corrida join usuario on fkUsuario = idUsuario group by nickname;`;
+  var instrucao = `select 
+    usuario.nickname as nome, 
+    count(andarAlcancado) as quantidadeTentativa 
+from corrida 
+join usuario on fkUsuario = idUsuario 
+group by nickname 
+order by quantidadeTentativa desc;
+`;
   console.log("Executando a instrução SQL: " + instrucao);
   return database.executar(instrucao);
 }

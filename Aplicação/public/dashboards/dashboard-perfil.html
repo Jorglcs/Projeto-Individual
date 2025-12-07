@@ -75,7 +75,7 @@
       </div>
       <div class="graficos">
         <div class="graifico-pie">
-          <h1>Buff mais escolhido:</h1>
+          <h1>Porta mais escolhida:</h1>
           <div class="buff">
             <h1 id="h1_Nomebuff">0</h1>
             <img id="img_buff" src="" alt="" />
@@ -90,9 +90,11 @@
       </div>
     </div>
     <dialog id="modal" class="modal">
+      
       <h1>Nickname:</h1>
       <input type="text" value="" id="input_nicknameModal" />
-      <button onclick="fecharModal()">Fechar Modal</button>
+      <button onclick="fecharModal()">Trocar nome</button>
+      
     </dialog>
   </body>
 </html>
@@ -211,11 +213,11 @@
         if (response.ok) {
           response.json().then(function (resposta) {
             console.log(resposta[0]);
-            totalAres = resposta[0].totalAres;
-            totalZeus = resposta[0].totalZeus;
-            totalPoseidon = resposta[0].totalPoseidon;
-            totalFontes = resposta[0].totalFontes;
-            totalCoracao = resposta[0].totalCoracao;
+            totalAres = Number(resposta[0].totalAres);
+            totalZeus = Number(resposta[0].totalZeus);
+            totalPoseidon = Number(resposta[0].totalPoseidon);
+            totalFontes = Number(resposta[0].totalFontes);
+            totalCoracao = Number(resposta[0].totalCoracao);
 
             if (
               totalAres > totalZeus &&

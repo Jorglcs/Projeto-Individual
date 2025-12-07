@@ -138,7 +138,7 @@ function sair() {
   p_danoInimigo.innerHTML = inimigo.danoAtaque.toFixed(2);
   div_portas.style.display = "none";
   div_tudoBoon.style.display = "none";
-  p_vidaPlayer.innerHTML = `${player.vidaAtual}/${player.vidaMaxima}`;
+  p_vidaPlayer.innerHTML = `${player.vidaAtual.toFixed(2)}/${player.vidaMaxima.toFixed(2)}`;
   contadorLog = 1;
   div_logs.innerHTML = "";
 }
@@ -223,7 +223,7 @@ function randomizarPerkPortas() {
     ],
   ];
 
-  // a lista dos perks vai ser [img,nome,descricao]
+  // a lista dos perks vai ser [nome, img,descricao]
 
   for (var i = 1; i <= numPortas; i++) {
     var tamanholistaPerks = listaPerks.length;
@@ -233,7 +233,7 @@ function randomizarPerkPortas() {
     var button_portaid = document.getElementById(`button_porta${i}`);
     var p_descricaoid = document.getElementById(`p_descricaoPorta${i}`);
 
-    var numListaAleatorio = Math.floor(Math.random() * tamanholistaPerks); //gerar numero de 0 a tamanho da lista -1 pq começa do 0
+    var numListaAleatorio = Math.floor(Math.random() * tamanholistaPerks); 
     img_portaid.src = listaPerks[numListaAleatorio][0];
     p_portaid.innerHTML = listaPerks[numListaAleatorio][1];
     button_portaid.onclick = listaPerks[numListaAleatorio][2];
@@ -598,7 +598,7 @@ function atualizar() {
   p_vidaInimigo.innerHTML = `${Math.floor(inimigo.vidaAtual)}/${Math.floor(
     inimigo.vidaMaxima
   )}`;
-  p_danoInimigo.innerHTML = `Dano: ${Math.floor(inimigo.danoAtaque)}`;
+  p_danoInimigo.innerHTML = `${Math.floor(inimigo.danoAtaque)}`;
   p_cargasEspecial.innerHTML = `Cargas de especial: ${Math.floor(
     player.cargaEspecial
   )}/${Math.floor(player.cargaEspecialMaxima)}`;
