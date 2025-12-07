@@ -29,4 +29,4 @@ Versão web inspirada no jogo **Hades**, com sistema de login, jogo interativo e
 
 **Jorge Luiz Cardoso de Siqueira**  
 ADS — São Paulo Tech School  
-RA: 01252082  
+
